@@ -79,18 +79,40 @@ int main(int argc, char **argv)
 
 
 
+//pb pa
+tab1[pos] = tab2[pos];
+write(1, "pa\n", 1);
+tab2[pos] = tab1[pos];
+write(1, "pb\n", 1);
 
 
 
 
 
-
-
-//Tableau 1 sa
-if (tab1[0] > tab1[1])
+//sa sb
+if (tab[pos] > tab[pos + 1])
 {
-	ft_swap(&tab1[0], &tab1[1])
+	ft_swap(&tab[0], &tab[1])
 		write(1, "sa\n", 3);
 }
 
-while (tab1[0]
+//ra rb rra rrb
+if (pos - new_pos < 0)
+{
+	if (abs(pos - new_pos) > (argc - 1) / 2)
+		rotate = argc - 1 - (pos - new_pos);
+	else
+		rotate = new_pos - pos;
+}
+else
+{
+	if (abs(pos - new_pos) > (argc - 1) / 2)
+		rotate = argc - 1 - (new_pos - pos);
+	else
+		rotate = pos - new_pos;
+}
+
+
+
+
+
