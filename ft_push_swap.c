@@ -56,7 +56,7 @@ int ft_ps(t_dynarray *darr, t_dynarray *darr2)
 	return (0);
 }
 
-int ft_rp(t_dynarray *darr)
+int ft_rs(t_dynarray *darr)
 {
 	int tmp;
 	int *tab;
@@ -68,7 +68,7 @@ int ft_rp(t_dynarray *darr)
 	return (0);
 }
 
-int ft_rrp(t_dynarray *darr)
+int ft_rrs(t_dynarray *darr)
 {
 	int tmp;
 	int *tab;
@@ -162,11 +162,77 @@ int ft_find_middle(t_dynarray *darr)
 	return (-1);
 }
 
-int fast_sort(t_dynarray *darr, t_dynarray *darr2)
-{
-	if (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr, 1))
-		
 
+int ft_fast_sort3(t_dynarray *darr, t_dynarray *darr2)
+{
+	int *tab;
+
+	tab = (int *)darr->list;
+	if (tab[0] < tab[2])
+	{
+		if (tab[1] > tab[2])
+		{
+			ft_ps(darr, darr2);
+			ft_ps(darr, darr2);
+			ft_rs(darr);
+			ft_ps(darr2, darr);
+			ft_ps(darr2, darr);
+			ft_rrs(darr);
+		}
+		else
+			ft_sw(darr);
+	}
+	return (0);
+}
+
+int ft_fast_sort2(t_dynarray *darr, t_dynarray *darr2)
+{
+	int *tab;
+
+	tab = (int *)darr->list;
+	if (tab[0] < tab[1])
+	{
+		if (tab[1] > tab[2])
+		{
+			ft_ps(darr, darr2);
+			ft_sw(darr);
+			ft_ps(darr2, darr);
+		}	
+		else
+			return (0);
+	}
+	else
+		ft_fast_sort3(darr, darr2);
+	return (0);
+}
+
+int ft_fast_sort(t_dynarray *darr, t_dynarray *darr2)
+{
+	int *tab;
+
+	tab = (int *)darr->list;
+	if (tab[0] > tab[1])
+	{
+		if (tab[1] > tab[2])
+		{
+			ft_sw(darr);
+			ft_ps(darr, darr2);
+			ft_ps(darr, darr2);
+			ft_rs(darr);
+			ft_ps(darr2, darr);
+			ft_ps(darr2, darr);
+			ft_rrs(darr);
+		}
+		else
+		{
+			ft_sw(darr);
+			ft_ps(darr, darr2);
+			ft_sw(darr);
+			ft_ps(darr2, darr);
+		}
+	}
+	else
+		return (ft_fast_sort2(darr, darr2));
 	return (0);
 }
 
@@ -175,29 +241,30 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2)
 	int middle;
 
 	middle = ft_find_middle(darr);
-	printf("middle = %d |\n\n", middle);
-
-	if (darr->nb_cells < 4)
-		fast_sort(darr, darr2); 
+	if (darr->nb_cells == 2)
+	{
+		if (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr, 1))
+			ft_sw(darr);
+	}
+	else if (darr->nb_cells == 3)
+		ft_fast_sort(darr, darr2); 
 	else
-		{
+	{
 		while (darr2->nb_cells < darr->nb_cells - 1)
 		{
 			if (*(int *)dynacc(darr, 0) < middle)
 			{
 				ft_ps(darr, darr2);
 				write(1, "pb\n", 3);
-				ft_print_stack(darr);
-				ft_print_stack(darr2);
 			}
 			else
 			{
-				ft_rp(darr);
-				write(1, "ra\n", 5);
-				ft_print_stack(darr);
-				ft_print_stack(darr2);
+				ft_rs(darr);
+				write(1, "ra\n", 3);
 			}
 		}
+		ft_sort_stack(darr, darr2);
+		ft_sort_stack(darr2, darr);
 	}
 	return (0);
 }
