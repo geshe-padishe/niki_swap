@@ -43,6 +43,7 @@ int ft_sw(t_dynarray *darr)
 	tmp = tab[0];
 	tab[0] = tab[1];
 	tab[1] = tmp;
+	write(1, "sw\n", 3);
 	return (0);
 }
 
@@ -53,6 +54,7 @@ int ft_ps(t_dynarray *darr, t_dynarray *darr2)
 	tmp = *(int *)dynacc(darr, 0);
 	pop_dynarray(darr, 1, 1);
 	push_dynarray(darr2, &tmp, 1, 1);
+	write(1, "ps\n", 3);
 	return (0);
 }
 
@@ -65,6 +67,7 @@ int ft_rs(t_dynarray *darr)
 	tmp = *tab;
 	pop_dynarray(darr, 1, 1);
 	push_dynarray(darr, &tmp, 1, 0);
+	write(1, "rs\n", 3);
 	return (0);
 }
 
@@ -77,6 +80,7 @@ int ft_rrs(t_dynarray *darr)
 	tmp = tab[darr->nb_cells - 1];
 	pop_dynarray(darr, 1, 0);
 	push_dynarray(darr, &tmp, 1, 1);
+	write(1, "rrs\n", 3);
 	return (0);
 }
 
@@ -113,13 +117,14 @@ int ft_parse(int argc, char **argv, t_dynarray *darr)
 	return (0);
 }
 
-void ft_print_stack(t_dynarray *darr)
+void ft_print_stack(t_dynarray *darr, char stack)
 {
 	int *tab;
 	uint64_t i;
 
 	i = 0;
 	tab = darr->list;
+	printf("stack %c = ", stack);
 	while (i < darr->nb_cells)
 	{
 		printf("%d ", tab[i]);
@@ -128,7 +133,7 @@ void ft_print_stack(t_dynarray *darr)
 	printf("\n");
 }
 
-uint64_t ft_count_lower(t_dynarray *darr, int index)
+uint64_t ft_count_lower(t_dynarray *darr, uint64_t index)
 {
 	uint64_t i;
 	uint64_t count;
@@ -139,7 +144,7 @@ uint64_t ft_count_lower(t_dynarray *darr, int index)
 	i = 0;
 	while (i < darr->nb_cells)
 	{
-		if (stack[i] < stack[index] && (int)i != index)
+		if (stack[i] < stack[index])
 			count++;
 		i++;
 	}
@@ -149,14 +154,12 @@ uint64_t ft_count_lower(t_dynarray *darr, int index)
 int ft_find_middle(t_dynarray *darr)
 {
 	uint64_t i;
-	int *stack;
 
-	stack = (int *)darr->list;
 	i = 0;
 	while (i < darr->nb_cells)
 	{
 		if (ft_count_lower(darr, i) == darr->nb_cells / 2)
-			return (stack[i]);
+			return (*(int *)dynacc(darr, i));
 		i++;
 	}
 	return (-1);
@@ -236,11 +239,19 @@ int ft_fast_sort(t_dynarray *darr, t_dynarray *darr2)
 	return (0);
 }
 
-int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2)
+int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, char stack, bool cmprt)
 {	
 	int middle;
+	uint64_t i;
 
+	i = 0;
+	printf("----------------------------------------\n                             %c\n", stack);
+	printf("nb_cells = %llu\n", darr->nb_cells);
+	printf("nb_cells2 = %llu\n", darr2->nb_cells);
 	middle = ft_find_middle(darr);
+	printf("middle = %d\n", middle);
+	ft_print_stack(darr, stack);
+	ft_print_stack(darr2, '2');
 	if (darr->nb_cells == 2)
 	{
 		if (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr, 1))
@@ -250,21 +261,18 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2)
 		ft_fast_sort(darr, darr2); 
 	else
 	{
-		while (darr2->nb_cells < darr->nb_cells - 1)
+		while (i < darr->nb_cells)
 		{
+			if (cmprt
 			if (*(int *)dynacc(darr, 0) < middle)
-			{
 				ft_ps(darr, darr2);
-				write(1, "pb\n", 3);
-			}
 			else
-			{
 				ft_rs(darr);
-				write(1, "ra\n", 3);
-			}
+			i++;
 		}
-		ft_sort_stack(darr, darr2);
-		ft_sort_stack(darr2, darr);
+		printf("----------------------------------------------------\n");
+		ft_sort_stack(darr2, darr, '2', !cmprt);
+		ft_sort_stack(darr, darr2, stack, cmprt);
 	}
 	return (0);
 }
@@ -279,5 +287,5 @@ int main(int argc, char **argv)
 
 	if ((init_dynarray(&darr2, argc -1, 4)) == -1)
 		return (-1);
-	ft_sort_stack(&darr, &darr2);
+	ft_sort_stack(&darr, &darr2, 'A', 1);
 }
