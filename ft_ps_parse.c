@@ -67,14 +67,17 @@ int ft_parse(int argc, char **argv, t_dynarray *darr)
 	return (0);
 }
 
-void ft_print_stack(t_dynarray *darr, char stack)
+void ft_print_stack(t_dynarray *darr, bool cmprt)
 {
 	int *tab;
 	uint64_t i;
 
 	i = 0;
 	tab = darr->list;
-	printf("stack %c = ", stack);
+	if (cmprt)
+		printf("stack A = ");
+	else
+		printf("stack B = ");
 	while (i < darr->nb_cells)
 	{
 		printf("%d ", tab[i]);

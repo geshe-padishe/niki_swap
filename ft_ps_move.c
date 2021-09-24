@@ -62,7 +62,7 @@ int ft_rrs(t_dynarray *darr)
 	tmp = tab[darr->nb_cells - 1];
 	pop_dynarray(darr, 1, 0);
 	push_dynarray(darr, &tmp, 1, 1);
-	write(1, "rrs\n", 3);
+	write(1, "rrs\n", 4);
 	return (0);
 }
 
