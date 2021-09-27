@@ -64,12 +64,7 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 	printf("cmprt = %d\n", cmprt);
 	ft_print_stack(darr, cmprt);
 	ft_print_stack(darr2, !cmprt);
-	if (ft_is_sorted(darr, darr2))
-	{
-		ft_insert_sort(darr, darr2, cmprt);
-		return (0);
-	}
-	else if (darr->nb_cells == 2)
+	if (darr->nb_cells == 2)
 	{
 		if (cmprt)
 			if (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr, 1))
@@ -87,6 +82,11 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 		else
 			ft_dfast_sort(darr, darr2);
 		nb_sorted[cmprt] += 3;
+		return (0);
+	}
+	else if (ft_is_sorted(darr, darr2))
+	{
+		ft_insert_sort(darr, darr2, cmprt);
 		return (0);
 	}
 	else if (cmprt && (ft_is_sorted(darr, darr2) && darr2->nb_cells == 0))
