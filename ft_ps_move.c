@@ -53,16 +53,22 @@ int ft_rs(t_dynarray *darr, uint64_t n)
 	return (0);
 }
 
-int ft_rrs(t_dynarray *darr)
+int ft_rrs(t_dynarray *darr, uint64_t n)
 {
 	int tmp;
 	int *tab;
+	uint64_t i;
 
-	tab = (int *)darr->list;
-	tmp = tab[darr->nb_cells - 1];
-	pop_dynarray(darr, 1, 0);
-	push_dynarray(darr, &tmp, 1, 1);
-	write(1, "rrs\n", 4);
+	i = 0;
+	while (i < n)
+	{
+		tab = (int *)darr->list;
+		tmp = tab[darr->nb_cells - 1];
+		pop_dynarray(darr, 1, 0);
+		push_dynarray(darr, &tmp, 1, 1);
+		write(1, "rrs\n", 4);
+		i++;
+	}
 	return (0);
 }
 
