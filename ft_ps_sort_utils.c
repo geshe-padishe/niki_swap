@@ -36,11 +36,13 @@ uint64_t ft_count_bigger(t_dynarray *darr, uint64_t index, int nb_sorted)
 	return (count);
 }
 
-int ft_find_middle(t_dynarray *darr, int nb_sorted, bool cmprt)
+int ft_find_middle(t_dynarray *darr, bool cmprt)
 {
 	uint64_t i;
+	int nb_sorted;
 
 	i = 0;
+	nb_sorted = ft_count_sorted(darr, cmprt);
 	while (i < darr->nb_cells - nb_sorted)
 	{
 		if (cmprt)

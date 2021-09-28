@@ -48,6 +48,22 @@ int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	return (1);
 }
 
+int ft_count_sorted(t_dynarray *darr, bool cmprt)
+{
+	uint64_t i;
+	int *tab;
+
+	tab = (int *)darr->list;
+	i = darr->nb_cells - 1;
+	if (cmprt)
+		while (tab[i] == tab[i - 1] + 1 && i > 0)
+			i--;
+	else
+		while (tab[i] == tab[i - 1] - 1 && i > 0)
+			i--;
+	return (darr->nb_cells - 1 - i);
+}
+
 int ft_dfast_sort3(t_dynarray *darr)
 {
 	int *tab;

@@ -1,8 +1,40 @@
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "dynarray.h"
+#include "ft_push_swap.h"
+
+uint64_t ft_count_index(t_dynarray *darr, uint64_t index, int nb_sorted)
+{
+	uint64_t i;
+	uint64_t count;
+	int *stack;
+
+	stack = (int *)darr->list;
+	count = 0;
+	i = 0;
+	while (i < darr->nb_cells - nb_sorted)
+	{
+		if (stack[i] < stack[index])
+			count++;
+		i++;
+	}
+	return (count);
+}
+int		ft_ps_index(t_dynarray *darr)
+{
+	int *tab;
+	void *tmp;
+	uint64_t i;
+
+	i = 0;
+	tab = (int *)darr->tmp;
+	while (i < darr->nb_cells)
+	{
+		tab[i] = ft_count_lower(darr, i, 0);
+		i++;
+	}
+	tmp = darr->list;
+	darr->list = darr->tmp;
+	darr->tmp = tmp;
+	return (1);
+}
 
 int		ft_ps_atoi(const char *nstr)
 {

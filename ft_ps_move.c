@@ -1,8 +1,4 @@
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "dynarray.h"
+#include "ft_push_swap.h"
 
 int ft_sw(t_dynarray *darr)
 {
