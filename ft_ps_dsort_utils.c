@@ -33,6 +33,8 @@ int ft_count_sorted(t_dynarray *darr, bool cmprt)
 	int *tab;
 
 	tab = (int *)darr->list;
+	if (!cmprt || !(tab[darr->nb_cells - 1] == darr->nb_cells - 1))
+		return (0);
 	i = darr->nb_cells - 1;
 	if (cmprt)
 		while (i > 0 && tab[i] == tab[i - 1] + 1)

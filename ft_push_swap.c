@@ -112,7 +112,7 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 
 	if (ft_small_sort(darr, darr2, cmprt) || (darr->nb_cells == 1 && cmprt))
 	{
-		//ft_insert_sort(darr, darr2, cmprt);
+		ft_insert_sort(darr, darr2, cmprt);
 		return (0);
 	}
 	else if (cmprt && (ft_is_sorted(darr, darr2) && darr2->nb_cells == 0))
