@@ -17,6 +17,7 @@ uint64_t ft_count_index(t_dynarray *darr, uint64_t index, int nb_sorted)
 	}
 	return (count);
 }
+
 int		ft_ps_index(t_dynarray *darr)
 {
 	int *tab;

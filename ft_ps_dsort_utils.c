@@ -8,43 +8,22 @@ int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 
 	tab = (int *)darr->list;
 	tab2 = (int *)darr2->list;
-	if (cmprt)
+	while (darr2->nb_cells > 0)
 	{
-		while (darr2->nb_cells > 0)
-		{
-			ft_print_stack(darr, cmprt);
-			ft_print_stack(darr2, !cmprt);
-			printf("prutete");
-			j = 0;
-			if (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr2, 0))
-				ft_ps(darr2, darr, 1);
-			else
-				while (*(int *)dynacc(darr, 0) < *(int *)dynacc(darr2, 0))
-				{
-					j++;
-					ft_rs(darr2, 1);
-					ft_insert_sort(darr, darr2, cmprt);
-				}
-			ft_rrs(darr2, j);
-		}
+		j = 0;
+		if (*(int *)dynacc(darr, 0) == *(int *)dynacc(darr2, 0) + 1)
+			ft_ps(darr2, darr, 1);
+		else
+			while (*(int *)dynacc(darr, 0) != *(int *)dynacc(darr2, 0) + 1)
+			{
+				printf("darr 0 = %d, darr2 0 = %d\n", *(int *)dynacc(darr, 0), *(int *)dynacc(darr2, 0));
+				ft_print_stack(darr, cmprt);
+				ft_print_stack(darr2, !cmprt);
+				j++;
+				ft_rrs(darr2, 1);
+			}
+		//ft_rrs(darr, j);
 	}
-	else
-		while (darr->nb_cells > 0)
-		{
-			ft_print_stack(darr, cmprt);
-			ft_print_stack(darr2, !cmprt);
-			printf("prutete");
-			j = 0;
-			if (*(int *)dynacc(darr, 0) < *(int *)dynacc(darr2, 0))
-				ft_ps(darr2, darr, 1);
-			else
-				while (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr2, 0))
-				{
-					j++;
-					ft_rs(darr, 1);
-				}
-			ft_rrs(darr, j);
-		}
 	return (1);
 }
 

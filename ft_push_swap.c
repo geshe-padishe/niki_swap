@@ -20,6 +20,29 @@
 //	return (nb_sorted);
 //}
 
+int ft_index_check(t_dynarray darr)
+{
+	int i;
+	int j;
+	int *tab;
+
+	j = 0;
+	i = 0;
+	tab = (int *)darr.list;
+	while (i < darr.nb_cells)
+	{
+		j = i + 1;
+		while (j < darr.nb_cells)
+		{
+			if (tab[i] == tab[j])
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 int ft_abs(int nb)
 {
 	if (nb < 0)
@@ -77,8 +100,8 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 	uint64_t i;
 	int j;
 
-//	if (*max_sorts > 20)
-//		return (0);
+	if (*max_sorts > 4)
+		return (0);
 	(*max_sorts)++;
 	printf("-----------------------------------\n");
 	printf("nb_cells = %llu | ", darr->nb_cells);
@@ -87,9 +110,7 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 	ft_print_stack(darr, cmprt);
 	ft_print_stack(darr2, !cmprt);
 
-	if (ft_small_sort(darr, darr2, cmprt))
-		return (0);
-	else if (ft_is_sorted(darr, darr2))
+	if (ft_small_sort(darr, darr2, cmprt) || (darr->nb_cells == 1 && cmprt))
 	{
 		ft_insert_sort(darr, darr2, cmprt);
 		return (0);
@@ -107,7 +128,7 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 		i = 0;
 		j = 0;
 		//nb_sorted[0] = 0;
-		while (i < darr->nb_cells - ft_abs(ft_count_sorted(darr, cmprt)) && darr->nb_cells > 2)
+		while (darr->nb_cells > 1 && i < darr->nb_cells - ft_abs(ft_count_sorted(darr, cmprt)))
 		{
 			if (cmprt)
 			{
@@ -120,19 +141,8 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 					i++;
 				}
 			}
-			else
-			{
-				if (*(int *)dynacc(darr, 0) >= middle)
-					ft_ps(darr, darr2, 1);
-				else
-				{
-					ft_rs(darr, 1);
-					j++;
-					i++;
-				}
-			}
 		}
-		ft_rrs(darr, j);
+	//	ft_rrs(darr, j);
 	}
 	ft_sort_stack(darr, darr2, cmprt, argc, max_sorts);
 	ft_sort_stack(darr2, darr, !cmprt, argc, max_sorts);
@@ -156,6 +166,11 @@ int main(int argc, char **argv)
 	if ((init_dynarray(&darr2, argc - 1, 4)) == -1)
 		return (-1);
 	ft_ps_index(&darr);
+	if (ft_index_check(darr) == 0)
+	{
+		printf("Error\n");
+		return (-1);
+	}
 	ft_sort_stack(&darr, &darr2, 1, argc, &max_sorts);
 	ft_print_stack(&darr, 1);
 	ft_print_stack(&darr2, 0);
