@@ -58,7 +58,7 @@ int ft_find_middle(t_dynarray *darr, bool cmprt)
 	return (-1);
 }
 
-int ft_fast_sort3(t_dynarray *darr)
+int ft_fast_sort3(t_dynarray *darr, bool cmprt)
 {
 	int *tab;
 
@@ -68,14 +68,14 @@ int ft_fast_sort3(t_dynarray *darr)
 	{
 		if (tab[1] > tab[2])
 		{
-			ft_rrs(darr, 1);
-			ft_sw(darr);
+			ft_rrs(darr, 1, cmprt);
+			ft_sw(darr, cmprt);
 		}
 	}
 	return (0);
 }
 
-int ft_fast_sort2(t_dynarray *darr, t_dynarray *darr2)
+int ft_fast_sort2(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
 	int *tab;
 
@@ -85,21 +85,21 @@ int ft_fast_sort2(t_dynarray *darr, t_dynarray *darr2)
 	{
 		if (tab[0] < tab[1])
 		{
-			ft_sw(darr);
-			ft_rrs(darr, 1);
+			ft_sw(darr, cmprt);
+			ft_rrs(darr, 1, cmprt);
 		}
 		else
 		{
-			ft_sw(darr);
-			ft_rrs(darr, 1);
+			ft_sw(darr, cmprt);
+			ft_rrs(darr, 1, cmprt);
 		}
 	}
 	else
-		return (ft_fast_sort3(darr));
+		return (ft_fast_sort3(darr, cmprt));
 	return (0);
 }
 
-int ft_fast_sort(t_dynarray *darr, t_dynarray *darr2)
+int ft_fast_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
 	int *tab;
 
@@ -108,11 +108,11 @@ int ft_fast_sort(t_dynarray *darr, t_dynarray *darr2)
 	if (tab[1] < tab[0] && tab[1] < tab[2])
 	{
 		if (tab[0] < tab[2])
-			ft_sw(darr);
+			ft_sw(darr, cmprt);
 		else
-			ft_rs(darr, 1);
+			ft_rs(darr, 1, cmprt);
 	}
 	else
-		return (ft_fast_sort2(darr, darr2));
+		return (ft_fast_sort2(darr, darr2, cmprt));
 	return (0);
 }
