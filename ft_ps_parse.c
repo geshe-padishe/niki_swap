@@ -100,6 +100,29 @@ int ft_parse(int argc, char **argv, t_dynarray *darr)
 	return (0);
 }
 
+int ft_parse_string(int argc, char **argv, t_dynarray *darr)
+{
+	int i;
+	int *tab;
+	int count;
+
+	tab = darr->list;
+	i = 0;
+	count = 0;
+	while (argv[1][i])
+	{
+		if (argv[1][i] == ' ')
+			i++;
+		tab[i] = ft_ps_atoi(&argv[1][i]);
+		if (argv[1][i] > '0' && argv[1][i] < '9')
+			count++;
+		while (argv[1][i] >= '0' && argv[1][i] <= '9')
+			i++;
+	}
+	darr->nb_cells = 5;
+	return (0);
+}
+
 void ft_print_stack(t_dynarray *darr, int cmprt)
 {
 	int *tab;

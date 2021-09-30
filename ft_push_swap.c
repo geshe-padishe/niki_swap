@@ -148,11 +148,14 @@ int main(int argc, char **argv)
 	max_sorts = 0;
 	nb_sorted[0] = 0;
 	nb_sorted[1] = 0;
-
-	if (ft_parse(argc, argv, &darr) == -1)
+	
+	dprintf(1, "argv[1]: %s\n", argv[1]);
+	if ((init_dynarray(&darr, 5, 4)) == -1)
+		return (-1);
+	if (ft_parse_string(argc, argv, &darr) == -1)
 		return (-1);
 
-	if ((init_dynarray(&darr2, argc - 1, 4)) == -1)
+	if ((init_dynarray(&darr2, 5, 4)) == -1)
 		return (-1);
 	ft_ps_index(&darr);
 	if (ft_index_check(darr) == 0)
