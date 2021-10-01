@@ -100,41 +100,35 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 	uint64_t i;
 	int j;
 
-	ft_print_stack(darr, cmprt);
-	ft_print_stack(darr2, !cmprt);
-
+//	ft_print_stack(darr, cmprt);
+//	ft_print_stack(darr2, !cmprt);
 	if (ft_small_sort(darr, darr2, cmprt) || (darr->nb_cells == 1 && cmprt))
 	{
-		ft_insert_sort(darr, darr2, !cmprt);
+		//ft_insert_sort(darr, darr2, !cmprt);
 		return (0);
 	}
 	else if (cmprt && (ft_is_sorted(darr, darr2) && darr2->nb_cells == 0))
-		return (0);
-	else if (!cmprt && (ft_is_sorted(darr2, darr) && darr->nb_cells == 0))
 		return (0);
 	else
 	{
 		middle = ft_find_middle(darr, cmprt);
 		i = 0;
 		j = 0;
-		//nb_sorted[0] = 0;
 		while (darr->nb_cells > 1 && i < darr->nb_cells - ft_abs(ft_count_sorted(darr, cmprt)))
 		{
-			if (cmprt)
+//			if (darr->nb_cells > 1 && darr2->nb_cells > 1 && *(int *)dynacc(darr, 0) > *(int *)(dynacc(darr, 1)) 
+//				&& *(int *)dynacc(darr2, 0) < *(int *)(dynacc(darr2, 1)))
+//				ft_dsw(darr, darr2);
+			if (*(int *)dynacc(darr, 0) <= middle)
+				ft_ps(darr, darr2, 1, cmprt);
+			else
 			{
-				if (*(int *)dynacc(darr, 0) <= middle)
-					ft_ps(darr, darr2, 1, cmprt);
-				else
-				{
-					ft_rs(darr, 1, cmprt);
-					j++;
-					i++;
-				}
+				ft_rs(darr, 1, cmprt);
+				j++;
+				i++;
 			}
 		}
-	//	ft_rrs(darr, j);
 	}
-	ft_sort_stack(darr, darr2, cmprt, argc, max_sorts);
 	return (0);
 }
 
@@ -149,22 +143,41 @@ int main(int argc, char **argv)
 	nb_sorted[0] = 0;
 	nb_sorted[1] = 0;
 	
-	dprintf(1, "argv[1]: %s\n", argv[1]);
-	if ((init_dynarray(&darr, 5, 4)) == -1)
-		return (-1);
-	if (ft_parse_string(argc, argv, &darr) == -1)
-		return (-1);
 
-	if ((init_dynarray(&darr2, 5, 4)) == -1)
-		return (-1);
+	if (argc == 2)
+	{
+		if ((init_dynarray(&darr, ft_count_nb(argv[1]), 4)) == -1)
+			return (-1);
+		if ((init_dynarray(&darr2, ft_count_nb(argv[1]), 4)) == -1)
+			return (-1);
+		if (ft_parse_string(argc, argv, &darr) == -1)
+		{
+			write(1, "2222Error\n", 10);
+			return (-1);
+		}
+	}
+	else if (argc > 2)
+	{
+		if ((init_dynarray(&darr, argc - 1, 4)) == -1)
+			return (-1);
+		if ((init_dynarray(&darr2, argc - 1, 4)) == -1)
+			return (-1);
+		if (ft_parse(argc, argv, &darr) == -1)
+		{
+			write(1, ">>>222Error\n", 10);
+			return (-1);
+		}
+	}
 	ft_ps_index(&darr);
 	if (ft_index_check(darr) == 0)
 	{
-		printf("Error\n");
+		printf("1111 Error\n");
 		return (-1);
 	}
 	ft_sort_stack(&darr, &darr2, 1, argc, &max_sorts);
-//	ft_print_stack(&darr, 1);
-//	ft_print_stack(&darr2, 0);
+	ft_print_stack(&darr, 1);
+	ft_print_stack(&darr2, 0);
+	if (ft_is_sorted(&darr, &darr2) == 0)
+		printf("STACK NOT SORTED!!\n");
 	return (0);
 }

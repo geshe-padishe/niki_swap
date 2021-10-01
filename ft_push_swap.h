@@ -1,5 +1,7 @@
 #include "dynarray.h"
 
+int ft_dsw(t_dynarray *darr, t_dynarray *darr2);
+int ft_count_nb(char *str);
 int ft_parse_string(int argc, char **argv, t_dynarray *darr);
 int ft_small_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt);
 int ft_count_sorted(t_dynarray *darr, bool cmprt);

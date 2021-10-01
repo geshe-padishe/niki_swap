@@ -3,13 +3,21 @@
 uint64_t ft_find_next(int nb, t_dynarray *darr)
 {
 	uint64_t i;
+	uint64_t j;
 	int *tab;
 
 	i = 0;
+	j = 0;
 	tab = (int *)darr->list;
 	while (i < darr->nb_cells)
 	{
 		if (nb == tab[i] + 1)
+			return (i);
+		i++;
+	}	
+	while (j < darr->nb_cells)
+	{
+		if (nb == tab[j] - 1)
 			return (i);
 		i++;
 	}	
@@ -26,6 +34,7 @@ int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	tab2 = (int *)darr2->list;
 	while (darr2->nb_cells > 0)
 	{
+
 		j = 0;
 		if (*(int *)dynacc(darr, 0) == *(int *)dynacc(darr2, 0) + 1)
 			ft_ps(darr2, darr, 1, cmprt);

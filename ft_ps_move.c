@@ -1,5 +1,22 @@
 #include "ft_push_swap.h"
 
+int ft_dsw(t_dynarray *darr, t_dynarray *darr2)
+{
+	int tmp;
+	int *tab;
+
+	tab = (int *)darr->list;
+	tmp = tab[0];
+	tab[0] = tab[1];
+	tab[1] = tmp;
+	tab = (int *)darr2->list;
+	tmp = tab[0];
+	tab[0] = tab[1];
+	tab[1] = tmp;
+	write(1, "ss\n", 3);
+	return (0);
+}
+
 int ft_sw(t_dynarray *darr, bool cmprt)
 {
 	int tmp;

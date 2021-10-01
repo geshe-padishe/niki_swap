@@ -52,10 +52,8 @@ int		ft_ps_atoi(const char *nstr)
 	}
 	if (*nstr >= '0' && *nstr <= '9')
 	{
-		while (*nstr)
+		while (*nstr >= '0' && *nstr <= '9')
 		{
-			if (!(*nstr >= '0' && *nstr <= '9'))
-				return (0);
 			nbr = nbr * 10 + (*nstr - 48);
 			nstr++;
 			if (nbr > 2147483647 || nbr < -2147483648)
@@ -75,20 +73,18 @@ int ft_parse(int argc, char **argv, t_dynarray *darr)
 	i = 1;
 	if (argc < 3 || !argv)
 	{
-		write(1, "Error\n", 6);
+		write(1, "<3<3<3Error\n", 10);
 		return (-1);
 	}
 	while (i < argc)
 	{
-		if (!ft_atoi(argv[i]))
+		if (ft_ps_atoi(argv[i]) == 0 && argv[i][0] != '0')
 		{
-			write(1, "Error\n", 6);
+			write(1, "<<<<Error\n", 8);
 			return (-1);
 		}
 		i++;
 	}
-	if ((init_dynarray(darr, argc - 1, 4)) == -1)
-		return (-1);
 	tab = (int *)darr->list;
 	i = 0;
 	while (i < argc - 1)
@@ -103,24 +99,49 @@ int ft_parse(int argc, char **argv, t_dynarray *darr)
 int ft_parse_string(int argc, char **argv, t_dynarray *darr)
 {
 	int i;
+	int j;
 	int *tab;
-	int count;
 
-	tab = darr->list;
+	tab = (int *)darr->list;
 	i = 0;
-	count = 0;
+	j = 0;
 	while (argv[1][i])
 	{
 		if (argv[1][i] == ' ')
 			i++;
-		tab[i] = ft_ps_atoi(&argv[1][i]);
-		if (argv[1][i] > '0' && argv[1][i] < '9')
-			count++;
-		while (argv[1][i] >= '0' && argv[1][i] <= '9')
-			i++;
+		else if (argv[1][i] >= '0' && argv[1][i] <= '9')
+		{
+			tab[j] = ft_ps_atoi(&argv[1][i]);
+			j++;
+			while (argv[1][i] >= '0' && argv[1][i] <= '9')
+				i++;
+		}
+		else
+			return (-1);
 	}
-	darr->nb_cells = 5;
+	darr->nb_cells = j;
 	return (0);
+}
+
+int ft_count_nb(char *str)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+		{
+			while (str[i] >= '0' && str[i] <= '9')
+				i++;
+			count++;
+		}
+		else
+			i++;
+	}	
+	return (count);
 }
 
 void ft_print_stack(t_dynarray *darr, int cmprt)
