@@ -105,12 +105,29 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 	middle = ft_find_middle(darr, cmprt);
 	i = 0;
 	j = 0;
-	while (darr->nb_cells > 1 && i < darr->nb_cells - ft_abs(ft_count_sorted(darr, cmprt)))
+	while (darr->nb_cells > 1 && i < darr->nb_cells)
 	{
 //		if (darr->nb_cells > 1 && darr2->nb_cells > 1 && *(int *)dynacc(darr, 0) > *(int *)(dynacc(darr, 1)) 
 //			&& *(int *)dynacc(darr2, 0) < *(int *)(dynacc(darr2, 1)))
 //			ft_dsw(darr, darr2);
 		if (*(int *)dynacc(darr, 0) <= middle)
+			ft_ps(darr, darr2, 1, cmprt);
+		else
+		{
+			ft_rs(darr, 1, cmprt);
+			j++;
+			i++;
+		}
+	}
+	i = 0;
+	j = 0;
+	ft_insert_sort(darr, darr2, cmprt);
+	while (darr->nb_cells > 1 && i < darr->nb_cells)
+	{
+//		if (darr->nb_cells > 1 && darr2->nb_cells > 1 && *(int *)dynacc(darr, 0) > *(int *)(dynacc(darr, 1)) 
+//			&& *(int *)dynacc(darr2, 0) < *(int *)(dynacc(darr2, 1)))
+//			ft_dsw(darr, darr2);
+		if (*(int *)dynacc(darr, 0) > middle)
 			ft_ps(darr, darr2, 1, cmprt);
 		else
 		{

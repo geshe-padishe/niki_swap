@@ -109,10 +109,12 @@ int ft_parse_string(int argc, char **argv, t_dynarray *darr)
 	{
 		if (argv[1][i] == ' ')
 			i++;
-		else if (argv[1][i] >= '0' && argv[1][i] <= '9')
+		else if ((argv[1][i] >= '0' && argv[1][i] <= '9') || argv[1][i] == '-')
 		{
 			tab[j] = ft_ps_atoi(&argv[1][i]);
 			j++;
+			if (argv[1][i] == '-')
+				i++;
 			while (argv[1][i] >= '0' && argv[1][i] <= '9')
 				i++;
 		}

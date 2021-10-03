@@ -2,25 +2,25 @@
 
 uint64_t ft_find_next(uint64_t index_l, uint64_t index_h, t_dynarray *darr)
 {
-	if (index_l < darr->nb_cells / 2 && index_h < darr->nb_cells / 2)
+	if (index_l <= darr->nb_cells / 2 && index_h <= darr->nb_cells / 2)
 	{
 		if (index_l < index_h)
 			return (index_l);
 		return (index_h);
 	}
-	if (index_l > darr->nb_cells / 2 && index_h > darr->nb_cells / 2)
+	if (index_l >= darr->nb_cells / 2 && index_h >= darr->nb_cells / 2)
 	{
-		if (index_l > index_h)
+		if (darr->nb_cells - index_l > darr->nb_cells - index_h)
 			return (index_h);
 		return (index_l);
 	}
-	if (index_l < darr->nb_cells / 2 && index_h > darr->nb_cells / 2)
+	if (index_l <= darr->nb_cells / 2 && index_h >= darr->nb_cells / 2)
 	{
 		if (index_l < darr->nb_cells - index_h)
 			return (index_l);
 		return (index_h);
 	}
-	if (index_l > darr->nb_cells / 2 && index_h < darr->nb_cells / 2)
+	if (index_l >= darr->nb_cells / 2 && index_h <= darr->nb_cells / 2)
 	{
 		if (darr->nb_cells - index_l < index_h)
 			return (index_l);
@@ -47,6 +47,7 @@ uint64_t ft_lowest_index(t_dynarray *darr)
 			nb = tab[i];
 			index = i;
 		}
+		i++;
 	}
 	return (index);
 }
@@ -62,50 +63,53 @@ uint64_t ft_highest_index(t_dynarray *darr)
 	index = 0;
 	tab = darr->list;
 	nb = tab[0];
-	while (i > darr->nb_cells)
+	while (i < darr->nb_cells)
 	{
 		if (tab[i] > nb)
 		{
 			nb = tab[i];
 			index = i;
 		}
+		i++;
 	}
 	return (index);
 }
 
 int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
-	int *tab;
 	int *tab2;
 	int l;
 	int h;
 	int x;
 
-	ft_print_stack(darr, cmprt);
-	ft_print_stack(darr2, !cmprt);
 	x = 0;
-	tab = (int *)darr->list;
 	tab2 = (int *)darr2->list;
-	l = 0;
-	h = tab[ft_highest_index(darr)];
+	l = tab2[ft_lowest_index(darr2)];
+	h = tab2[ft_highest_index(darr2)];
 	while (darr2->nb_cells > 0)
 	{
-		if (tab[0] == l)
+//		ft_print_stack(darr, cmprt);
+//		ft_print_stack(darr2, !cmprt);
+//		printf("ft_find_next: %llu\n", ft_find_next(ft_lowest_index(darr2), ft_highest_index(darr2), darr2));
+//		printf("l = %d, h = %d\nl_ix: %llu, h_ix: %llu\n", l, h, ft_lowest_index(darr2), ft_highest_index(darr2));
+		if (tab2[0] == l)
 		{
-			ft_ps(darr2, darr, 0, 1);
+			ft_ps(darr2, darr, 1, 1);
+			ft_rs(darr, 1, 0);
 			l++;
 		}
-		if (tab[0] == h)
+		else if (tab2[0] == h)
 		{
-			ft_ps(darr2, darr, 0, 0);
-			ft_rs(darr, 1, 0);
+			ft_ps(darr2, darr, 1, 1);
+			x++;
 			h--;
 		}
-		if (ft_find_next(ft_lowest_index(darr2), ft_highest_index(darr2), darr2) > darr2->nb_cells / 2)
+		else if (ft_find_next(ft_lowest_index(darr2), ft_highest_index(darr2), darr2) > darr2->nb_cells / 2)
 			ft_rrs(darr2, 1, 0);
 		else
-			ft_rs(darr, 1, 0);
+			ft_rs(darr2, 1, 0);
 	}
+		ft_rs(darr, x, 1);
 	return (1);
 }
 
