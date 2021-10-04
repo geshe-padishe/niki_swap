@@ -94,49 +94,53 @@ int ft_small_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	return (0);
 }
 
+int ft_move_lower(t_dynarray *darr, t_dynarray *darr2, int old_middle, int middle)
+{
+	uint64_t i;
+	int *tab;
+
+	i = 0;
+	while (i < darr->nb_cells)
+	{
+		tab = darr->list;
+		if (tab[0] >= old_middle && tab[0] < middle)
+			ft_ps(darr, darr2, 1, 1);
+		else
+			ft_rs(darr, 1, 1);
+		i++;
+	}
+	return (0);
+}
+
+int ft_find_sep(t_dynarray *darr)
+{
+	darr->nb_cells = darr->nb_cells;
+	if (darr->nb_cells > 150)
+		return (darr->nb_cells / (darr->nb_cells / 100));
+	else
+		return (darr->nb_cells / 2);
+}
+
 int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int *max_sorts)
 {
 	int middle;
-	uint64_t i;
-	int j;
-
+	int old_middle;
+	int count;
 //	ft_print_stack(darr, cmprt);
 //	ft_print_stack(darr2, !cmprt);
-	middle = ft_find_middle(darr, cmprt);
-	i = 0;
-	j = 0;
-	while (darr->nb_cells > 1 && i < darr->nb_cells)
+	middle = 0;
+	count = 1;
+	while (!ft_is_sorted(darr, darr2))
 	{
-//		if (darr->nb_cells > 1 && darr2->nb_cells > 1 && *(int *)dynacc(darr, 0) > *(int *)(dynacc(darr, 1)) 
-//			&& *(int *)dynacc(darr2, 0) < *(int *)(dynacc(darr2, 1)))
-//			ft_dsw(darr, darr2);
-		if (*(int *)dynacc(darr, 0) <= middle)
-			ft_ps(darr, darr2, 1, cmprt);
-		else
-		{
-			ft_rs(darr, 1, cmprt);
-			j++;
-			i++;
-		}
+		ft_print_stack(darr, cmprt);
+		ft_print_stack(darr2, !cmprt);
+		old_middle = middle;
+		middle = count * ft_find_sep(darr);
+		printf("old_m = %d, middle = %d\n", old_middle, middle);
+		ft_move_lower(darr, darr2, old_middle, middle);
+		//ft_insert_sort(darr, darr2, cmprt);
+		count++;
 	}
-	i = 0;
-	j = 0;
-	ft_insert_sort(darr, darr2, cmprt);
-	while (darr->nb_cells > 1 && i < darr->nb_cells)
-	{
-//		if (darr->nb_cells > 1 && darr2->nb_cells > 1 && *(int *)dynacc(darr, 0) > *(int *)(dynacc(darr, 1)) 
-//			&& *(int *)dynacc(darr2, 0) < *(int *)(dynacc(darr2, 1)))
-//			ft_dsw(darr, darr2);
-		if (*(int *)dynacc(darr, 0) > middle)
-			ft_ps(darr, darr2, 1, cmprt);
-		else
-		{
-			ft_rs(darr, 1, cmprt);
-			j++;
-			i++;
-		}
-	}
-	ft_insert_sort(darr, darr2, cmprt);
 	return (0);
 }
 
