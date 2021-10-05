@@ -45,11 +45,9 @@ int		ft_ps_atoi(const char *nstr)
 	sign = 1;
 	nbr = 0;
 	if (*nstr == '-' || *nstr == '+')
-	{
-		if (*nstr == '-')
-			sign = -1;
 		nstr++;
-	}
+	if (*nstr == '-')
+		sign = -1;
 	if (*nstr >= '0' && *nstr <= '9')
 	{
 		while (*nstr >= '0' && *nstr <= '9')
@@ -107,14 +105,16 @@ int ft_parse_string(int argc, char **argv, t_dynarray *darr)
 	j = 0;
 	while (argv[1][i])
 	{
-		if (argv[1][i] == ' ')
+		if (argv[1][i] == ' ' && i != 0)
 			i++;
-		else if ((argv[1][i] >= '0' && argv[1][i] <= '9') || argv[1][i] == '-')
+		if ((argv[1][i] >= '0' && argv[1][i] <= '9') || argv[1][i] == '-')
 		{
 			tab[j] = ft_ps_atoi(&argv[1][i]);
 			j++;
 			if (argv[1][i] == '-')
 				i++;
+			if (argv[1][i] < '0' || argv[1][i] > '9')
+				return (-1);
 			while (argv[1][i] >= '0' && argv[1][i] <= '9')
 				i++;
 		}

@@ -36,27 +36,31 @@ uint64_t ft_count_bigger(t_dynarray *darr, uint64_t index, int nb_sorted)
 	return (count);
 }
 
-int ft_find_middle(t_dynarray *darr, bool cmprt)
+int ft_small_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
-	uint64_t i;
-	int nb_sorted;
-
-	i = 0;
-	nb_sorted = 0;
-//	nb_sorted = ft_count_sorted(darr, cmprt);
-	while (i < darr->nb_cells - nb_sorted)
+	if (ft_is_sorted(darr, darr2))
+		return (1);
+	if (darr->nb_cells > 3)
+		ft_move_lower(darr, darr2, 3, 25);
+	if (darr->nb_cells == 2)
 	{
 		if (cmprt)
-			if ((ft_count_lower(darr, i, nb_sorted) == (darr->nb_cells - nb_sorted - 1) / 2) &&
-				(ft_count_bigger(darr, i, nb_sorted) == (darr->nb_cells - nb_sorted) / 2))
-				return (*(int *)dynacc(darr, i));
+			if (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr, 1))
+				ft_sw(darr, cmprt);
 		if (!cmprt)
-			if ((ft_count_lower(darr, i, nb_sorted) == (darr->nb_cells - nb_sorted) / 2) &&
-				(ft_count_bigger(darr, i, nb_sorted) == (darr->nb_cells - nb_sorted - 1) / 2))
-				return (*(int *)dynacc(darr, i));
-		i++;
+			if (*(int *)dynacc(darr, 0) < *(int *)dynacc(darr, 1))
+				ft_sw(darr, !cmprt);
 	}
-	return (-1);
+	else if (darr->nb_cells == 3)
+	{
+		if (cmprt)
+			ft_fast_sort(darr, darr2, cmprt); 
+		else
+			ft_dfast_sort(darr, darr2, cmprt);
+	}
+	if (darr2->nb_cells > 0)
+		ft_insert_sort(darr, darr2, cmprt);
+	return (1);
 }
 
 int ft_fast_sort3(t_dynarray *darr, bool cmprt)

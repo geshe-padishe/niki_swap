@@ -45,9 +45,9 @@ int ft_ps(t_dynarray *darr, t_dynarray *darr2, uint64_t n, bool cmprt)
 		pop_dynarray(darr, 1, 1);
 		push_dynarray(darr2, &tmp, 1, 1);
 		if (cmprt)
-			write(1, "pb\n", 3);
-		else
 			write(1, "pa\n", 3);
+		else
+			write(1, "pb\n", 3);
 		i++;
 	}
 	return (0);
