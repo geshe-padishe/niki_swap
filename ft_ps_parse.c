@@ -1,23 +1,5 @@
 #include "ft_push_swap.h"
 
-uint64_t ft_count_index(t_dynarray *darr, uint64_t index, int nb_sorted)
-{
-	uint64_t i;
-	uint64_t count;
-	int *stack;
-
-	stack = (int *)darr->list;
-	count = 0;
-	i = 0;
-	while (i < darr->nb_cells - nb_sorted)
-	{
-		if (stack[i] < stack[index])
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 int		ft_ps_index(t_dynarray *darr)
 {
 	int *tab;
@@ -45,22 +27,24 @@ int		ft_ps_atoi(const char *nstr)
 	sign = 1;
 	nbr = 0;
 	if (*nstr == '-' || *nstr == '+')
+	{
 		nstr++;
-	if (*nstr == '-')
-		sign = -1;
+		if (*(nstr - 1) == '-')
+			sign = -1;
+	}
 	if (*nstr >= '0' && *nstr <= '9')
 	{
 		while (*nstr >= '0' && *nstr <= '9')
 		{
 			nbr = nbr * 10 + (*nstr - 48);
 			nstr++;
-			if (nbr > 2147483647 || nbr < -2147483648)
+			if ((nbr > 2147483647 && sign == -1) || (nbr > 2147483648))
 				return (0);
 		}
 	}
 	else
 		return (0);
-	return (nbr * sign);
+	return ((int)nbr * sign);
 }
 
 int ft_parse(int argc, char **argv, t_dynarray *darr)
@@ -110,6 +94,7 @@ int ft_parse_string(int argc, char **argv, t_dynarray *darr)
 		if ((argv[1][i] >= '0' && argv[1][i] <= '9') || argv[1][i] == '-')
 		{
 			tab[j] = ft_ps_atoi(&argv[1][i]);
+			ft_print_stack(darr, 1);
 			j++;
 			if (argv[1][i] == '-')
 				i++;
