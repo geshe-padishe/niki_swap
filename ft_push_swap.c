@@ -75,11 +75,11 @@ int ft_move_lower(t_dynarray *darr, t_dynarray *darr2, int old_middle, int middl
 
 	count = 0;
 	i = 0;
+	printf("                MOVE_LOWER                \n");
+	printf("old_middle = %d, middle = %d\n", old_middle, middle);
 	while (ft_scan(darr, old_middle, middle))
 	{
 		tab = (int *)darr->list;
-//		printf("old_m = %d, middle = %d\n", old_middle, middle);
-//		printf("tab[0]: %d\n", tab[0]);
 		if (tab[0] >= old_middle && tab[0] < middle)
 			ft_ps(darr, darr2, 1, 0);
 		else
@@ -89,13 +89,18 @@ int ft_move_lower(t_dynarray *darr, t_dynarray *darr2, int old_middle, int middl
 		}
 		i++;
 	}
-	ft_rrs(darr, count, 1);
+	if (darr->nb_cells > 3)
+		ft_rrs(darr, count, 1);
 	return (0);
 }
 
 int ft_find_sep(t_dynarray *darr)
 {
-	if (darr->nb_cells > 150)
+	if (darr->nb_cells < 1)
+		return (0);
+	if (darr->nb_cells > 60 && darr->nb_cells < 150)
+		return (darr->nb_cells / 2);
+	else if (darr->nb_cells > 150)
 		return (darr->nb_cells / (darr->nb_cells / 100));
 	else
 		return (darr->nb_cells / 2);
@@ -106,20 +111,29 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 	int middle;
 	int old_middle;
 	int count;
-//	ft_print_stack(darr, cmprt);
-//	ft_print_stack(darr2, !cmprt);
-	middle = 0;
+	int middle_info;
+
+	middle_info = 0;
+	middle = ft_find_sep(darr);
+	old_middle = 0;
 	count = 1;
 	if (darr->nb_cells < 26)
 		ft_small_sort(darr, darr2, cmprt);
 	else
 		while (!ft_is_sorted(darr, darr2))
 		{
-			old_middle = middle;
-			middle = count * ft_find_sep(darr);
+	//		ft_print_stack(darr, cmprt);
+	//		ft_print_stack(darr2, !cmprt);
+			if (middle_info != 0)
+			{
+				old_middle = middle;
+				middle += middle;
+			}
+	//		printf("middle: %d, old_middle: %d\n", middle, old_middle);
+	//		printf("darr->nb_cells = %llu\n", darr->nb_cells);
 			ft_move_lower(darr, darr2, old_middle, middle);
-			ft_insert_sort(darr, darr2, cmprt);
 			count++;
+			ft_insert_sort(darr, darr2, cmprt);
 		}
 	return (0);
 }
@@ -143,7 +157,7 @@ int main(int argc, char **argv)
 			return (-1);
 		if (ft_count_nb(argv[1]) < 1)
 		{
-			write(1, "1Error\n", 6);
+			write(1, "Error\n", 6);
 			return (-1);	
 		}
 		if (ft_parse_string(argc, argv, &darr) == -1)
@@ -160,18 +174,14 @@ int main(int argc, char **argv)
 			return (-1);
 		if (ft_parse(argc, argv, &darr) == -1)
 		{
-			write(1, "2Error\n", 6);
+			write(1, "Error\n", 6);
 			return (-1);
 		}
 	}
-	ft_print_stack(&darr, 1);
-	ft_print_stack(&darr2, 0);
 	ft_ps_index(&darr);
-	ft_print_stack(&darr, 1);
-	ft_print_stack(&darr2, 0);
 	if (ft_index_check(darr) == 0)
 	{
-		printf("3Error\n");
+		printf("Error\n");
 		return (-1);
 	}
 	ft_sort_stack(&darr, &darr2, 1, argc, &max_sorts);

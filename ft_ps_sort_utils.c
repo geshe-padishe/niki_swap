@@ -67,7 +67,6 @@ int ft_fast_sort3(t_dynarray *darr, bool cmprt)
 {
 	int *tab;
 
-	//printf("fast sort 3");
 	tab = (int *)darr->list;
 	if (tab[0] < tab[1] && tab[0] < tab[2])
 	{
@@ -84,7 +83,6 @@ int ft_fast_sort2(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
 	int *tab;
 
-	//printf("fast sort 2");
 	tab = (int *)darr->list;
 	if (tab[2] < tab[0] && tab[2] < tab[1])
 	{
@@ -108,7 +106,6 @@ int ft_fast_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
 	int *tab;
 
-	printf("fast sort");
 	tab = (int *)darr->list;
 	if (tab[1] < tab[0] && tab[1] < tab[2])
 	{

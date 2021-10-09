@@ -94,7 +94,6 @@ int ft_parse_string(int argc, char **argv, t_dynarray *darr)
 		if ((argv[1][i] >= '0' && argv[1][i] <= '9') || argv[1][i] == '-')
 		{
 			tab[j] = ft_ps_atoi(&argv[1][i]);
-			ft_print_stack(darr, 1);
 			j++;
 			if (argv[1][i] == '-')
 				i++;
