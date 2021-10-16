@@ -72,11 +72,12 @@ int ft_move_lower(t_dynarray *darr, t_dynarray *darr2, int old_middle, int middl
 	uint64_t i;
 	int *tab;
 	int count;
+	static bool call_nb = 0;
 
 	count = 0;
 	i = 0;
 	printf("                MOVE_LOWER                \n");
-	printf("old_middle = %d, middle = %d\n", old_middle, middle);
+//	printf("old_middle = %d, middle = %d\n", old_middle, middle);
 	while (ft_scan(darr, old_middle, middle))
 	{
 		tab = (int *)darr->list;
@@ -89,8 +90,9 @@ int ft_move_lower(t_dynarray *darr, t_dynarray *darr2, int old_middle, int middl
 		}
 		i++;
 	}
-	if (darr->nb_cells > 3)
+	if (darr->nb_cells > 3 && call_nb != 0)
 		ft_rrs(darr, count, 1);
+	call_nb = 1;
 	return (0);
 }
 
@@ -110,30 +112,31 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 {
 	int middle;
 	int old_middle;
-	int count;
-	int middle_info;
+	int partition;
+	bool middle_info;
 
+	partition = ft_find_sep(darr);
 	middle_info = 0;
-	middle = ft_find_sep(darr);
+	middle = partition;
 	old_middle = 0;
-	count = 1;
 	if (darr->nb_cells < 26)
 		ft_small_sort(darr, darr2, cmprt);
 	else
 		while (!ft_is_sorted(darr, darr2))
 		{
+			printf("               SORT_STACK               \n");
 	//		ft_print_stack(darr, cmprt);
 	//		ft_print_stack(darr2, !cmprt);
 			if (middle_info != 0)
 			{
 				old_middle = middle;
-				middle += middle;
+				middle += partition;
 			}
 	//		printf("middle: %d, old_middle: %d\n", middle, old_middle);
 	//		printf("darr->nb_cells = %llu\n", darr->nb_cells);
 			ft_move_lower(darr, darr2, old_middle, middle);
-			count++;
 			ft_insert_sort(darr, darr2, cmprt);
+			middle_info = 1;
 		}
 	return (0);
 }
@@ -185,8 +188,8 @@ int main(int argc, char **argv)
 		return (-1);
 	}
 	ft_sort_stack(&darr, &darr2, 1, argc, &max_sorts);
-	ft_print_stack(&darr, 1);
-	ft_print_stack(&darr2, 0);
+//	ft_print_stack(&darr, 1);
+//	ft_print_stack(&darr2, 0);
 	if (ft_is_sorted(&darr, &darr2) == 0)
 		printf("STACK NOT SORTED!!\n");
 	return (0);
