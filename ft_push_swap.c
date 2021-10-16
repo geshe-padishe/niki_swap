@@ -76,7 +76,7 @@ int ft_move_lower(t_dynarray *darr, t_dynarray *darr2, int old_middle, int middl
 
 	count = 0;
 	i = 0;
-	printf("                MOVE_LOWER                \n");
+//	printf("                MOVE_LOWER                \n");
 //	printf("old_middle = %d, middle = %d\n", old_middle, middle);
 	while (ft_scan(darr, old_middle, middle))
 	{
@@ -101,9 +101,9 @@ int ft_find_sep(t_dynarray *darr)
 	if (darr->nb_cells < 1)
 		return (0);
 	if (darr->nb_cells > 60 && darr->nb_cells < 150)
-		return (darr->nb_cells / 2);
+		return (darr->nb_cells / 3.2);
 	else if (darr->nb_cells > 150)
-		return (darr->nb_cells / (darr->nb_cells / 100));
+		return (darr->nb_cells / (darr->nb_cells / 80));
 	else
 		return (darr->nb_cells / 2);
 }
@@ -124,7 +124,7 @@ int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt, int argc, int
 	else
 		while (!ft_is_sorted(darr, darr2))
 		{
-			printf("               SORT_STACK               \n");
+	//		printf("               SORT_STACK               \n");
 	//		ft_print_stack(darr, cmprt);
 	//		ft_print_stack(darr2, !cmprt);
 			if (middle_info != 0)

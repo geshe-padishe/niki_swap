@@ -83,7 +83,7 @@ int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	int x;
 
 	x = 0;
-	printf("              INSERT SORT              \n");
+	//printf("              INSERT SORT              \n");
 //	ft_print_stack(darr, cmprt);
 //	ft_print_stack(darr2, !cmprt);
 	while (darr2->nb_cells > 0)
