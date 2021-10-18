@@ -38,7 +38,7 @@ int		ft_ps_atoi(const char *nstr)
 		{
 			nbr = nbr * 10 + (*nstr - 48);
 			nstr++;
-			if ((nbr > 2147483647 && sign == -1) || (nbr > 2147483648))
+			if ((nbr > 2147483647 && sign == 1) || (nbr > 2147483648))
 				return (0);
 		}
 		if (*nstr != ' ' && *nstr != 0)

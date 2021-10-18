@@ -57,10 +57,12 @@ uint64_t ft_highest_index(t_dynarray *darr)
 	uint64_t i;
 	int *tab;
 	uint64_t index;
+	uint64_t index2;
 	int nb;
 
 	i = 0;
 	index = 0;
+	index2 = 0;
 	tab = darr->list;
 	nb = tab[0];
 	while (i < darr->nb_cells)
@@ -68,11 +70,14 @@ uint64_t ft_highest_index(t_dynarray *darr)
 		if (tab[i] > nb)
 		{
 			nb = tab[i];
+			index2 = index;
 			index = i;
 		}
 		i++;
 	}
-	return (index);
+	ft_print_stack(darr, 0);
+	printf("index: %llu, index2: %llu\n", index, index2);
+	return (ft_find_next(index, index2, darr));
 }
 
 int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
@@ -101,7 +106,10 @@ int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 		}
 		else if (tab2[0] == h)
 		{
+			ft_print_stack(darr, cmprt);
 			ft_ps(darr2, darr, 1, 1);
+			if (*(int *)dynacc(darr, 0) == *(int *)dynacc(darr, 1) - 1)
+				ft_sw(darr, 1);
 			x++;
 			h--;
 		}
