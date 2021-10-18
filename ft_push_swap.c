@@ -160,12 +160,12 @@ int main(int argc, char **argv)
 			return (-1);
 		if (ft_count_nb(argv[1]) < 1)
 		{
-			write(1, "Error\n", 6);
+			write(2, "Error\n", 6);
 			return (-1);	
 		}
 		if (ft_parse_string(argc, argv, &darr) == -1)
 		{
-			write(1, "Error\n", 6);
+			write(2, "Error\n", 6);
 			return (-1);
 		}
 	}
@@ -176,20 +176,15 @@ int main(int argc, char **argv)
 		if ((init_dynarray(&darr2, argc - 1, 4)) == -1)
 			return (-1);
 		if (ft_parse(argc, argv, &darr) == -1)
-		{
-			write(1, "Error\n", 6);
 			return (-1);
-		}
 	}
 	ft_ps_index(&darr);
 	if (ft_index_check(darr) == 0)
 	{
-		printf("Error\n");
+		write(2, "Error\n", 6);
 		return (-1);
 	}
 	ft_sort_stack(&darr, &darr2, 1, argc, &max_sorts);
-//	ft_print_stack(&darr, 1);
-//	ft_print_stack(&darr2, 0);
 	if (ft_is_sorted(&darr, &darr2) == 0)
 		printf("STACK NOT SORTED!!\n");
 	return (0);

@@ -41,6 +41,8 @@ int		ft_ps_atoi(const char *nstr)
 			if ((nbr > 2147483647 && sign == -1) || (nbr > 2147483648))
 				return (0);
 		}
+		if (*nstr != ' ' && *nstr != 0)
+			return (0);
 	}
 	else
 		return (0);
@@ -55,14 +57,14 @@ int ft_parse(int argc, char **argv, t_dynarray *darr)
 	i = 1;
 	if (argc < 3 || !argv)
 	{
-		write(1, "<3<3<3Error\n", 10);
+		write(2, "Error\n", 6);
 		return (-1);
 	}
 	while (i < argc)
 	{
 		if (ft_ps_atoi(argv[i]) == 0 && argv[i][0] != '0')
 		{
-			write(1, "<<<<Error\n", 8);
+			write(2, "Error\n", 6);
 			return (-1);
 		}
 		i++;
