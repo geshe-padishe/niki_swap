@@ -41,7 +41,9 @@ int ft_small_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	if (ft_is_sorted(darr, darr2))
 		return (1);
 	if (darr->nb_cells > 3)
-		ft_move_lower(darr, darr2, 3, 25);
+		ft_move_lower(darr, darr2, 4, 25);
+	if (darr->nb_cells > 3 && darr->nb_cells < 6)
+		ft_ps(darr, darr2, darr->nb_cells - 3, 0);
 	if (darr->nb_cells == 2)
 	{
 		if (cmprt)

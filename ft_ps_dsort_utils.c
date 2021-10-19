@@ -75,9 +75,9 @@ uint64_t ft_highest_index(t_dynarray *darr)
 		}
 		i++;
 	}
-	ft_print_stack(darr, 0);
-	printf("index: %llu, index2: %llu\n", index, index2);
-	return (ft_find_next(index, index2, darr));
+	//ft_print_stack(darr, 0);
+	//printf("index: %llu, index2: %llu\n", index, index2);
+	return (index);
 }
 
 int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
@@ -106,10 +106,8 @@ int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 		}
 		else if (tab2[0] == h)
 		{
-			ft_print_stack(darr, cmprt);
+			//ft_print_stack(darr, cmprt);
 			ft_ps(darr2, darr, 1, 1);
-			if (*(int *)dynacc(darr, 0) == *(int *)dynacc(darr, 1) - 1)
-				ft_sw(darr, 1);
 			x++;
 			h--;
 		}
