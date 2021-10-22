@@ -120,3 +120,36 @@ int ft_fast_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 		return (ft_fast_sort2(darr, darr2, cmprt));
 	return (0);
 }
+
+void ft_insrt_two(t_dynarray *darr, t_dynarray *darr2)
+{
+	int x;
+
+	if (dynacc(darr2, 0) > dynacc(darr2, 1))
+		ft_sw(darr2, 0);
+	if (dynacc(darr2, 0) > dynacc(darr, 2))
+	{
+		ft_ps(darr, darr2, 1, 1);
+		ft_rs(darr, 1, 1);
+	}
+	else
+		while (!ft_is_sorted(darr, darr2))
+		{
+			x = 0;
+			if (dynacc(darr2, 0) != dynacc(darr, 0) - 1)
+			{
+				ft_rs(darr, 1, 1);
+				x++;
+			}
+			else
+				ft_ps(darr2, darr, 1 , 1);
+			ft_rrs(darr, x, 1);
+		}
+}
+
+void ft_five_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
+{
+	ft_ps(darr, darr2, 2, 0);
+	ft_fast_sort(darr, darr2, 1);
+	ft_insrt_two(darr, darr2);
+}

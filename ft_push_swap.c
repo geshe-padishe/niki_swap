@@ -34,17 +34,10 @@ int ft_is_sorted(t_dynarray *darr, t_dynarray *darr2)
 {
 	uint64_t i;
 
-	i = 1;
+	i = 0;
 	while (i < darr->nb_cells)
 	{
-		if (*(int *)dynacc(darr, i - 1) > *(int *)dynacc(darr, i))
-			return (0);
-		i++;
-	}
-	i = 1;
-	while (i < darr2->nb_cells)
-	{
-		if (*(int *)dynacc(darr2, i - 1) < *(int *)dynacc(darr2, i))
+		if (darr2->nb_cells != 0 || *(int *)dynacc(darr, i) != i)
 			return (0);
 		i++;
 	}
