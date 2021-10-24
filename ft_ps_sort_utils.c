@@ -36,22 +36,32 @@ uint64_t ft_count_bigger(t_dynarray *darr, uint64_t index, int nb_sorted)
 	return (count);
 }
 
+void ft_insrt_two(t_dynarray *darr, t_dynarray *darr2)
+{
+	if (*(int *)dynacc(darr2, 0) < *(int *)dynacc(darr2, 1))
+	{
+		ft_sw(darr2, 1);
+	}
+	ft_ps(darr2, darr, 2, 1);
+}
+
+void ft_five_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
+{
+	ft_move_lower(darr, darr2, 0, 2);
+	ft_fast_sort(darr, darr2, 1);
+	ft_insrt_two(darr, darr2);
+}
+
 int ft_small_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
 	if (ft_is_sorted(darr, darr2))
 		return (1);
 	if (darr->nb_cells > 3)
-		ft_move_lower(darr, darr2, 4, 25);
-	if (darr->nb_cells > 3 && darr->nb_cells < 6)
-		ft_ps(darr, darr2, darr->nb_cells - 3, 0);
+		ft_five_sort(darr, darr2, 1);
 	if (darr->nb_cells == 2)
 	{
-		if (cmprt)
-			if (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr, 1))
-				ft_sw(darr, cmprt);
-		if (!cmprt)
-			if (*(int *)dynacc(darr, 0) < *(int *)dynacc(darr, 1))
-				ft_sw(darr, !cmprt);
+		if (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr, 1))
+			ft_sw(darr, cmprt);
 	}
 	else if (darr->nb_cells == 3)
 	{
@@ -89,10 +99,7 @@ int ft_fast_sort2(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	if (tab[2] < tab[0] && tab[2] < tab[1])
 	{
 		if (tab[0] < tab[1])
-		{
-			ft_sw(darr, cmprt);
 			ft_rrs(darr, 1, cmprt);
-		}
 		else
 		{
 			ft_sw(darr, cmprt);
@@ -119,37 +126,4 @@ int ft_fast_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	else
 		return (ft_fast_sort2(darr, darr2, cmprt));
 	return (0);
-}
-
-void ft_insrt_two(t_dynarray *darr, t_dynarray *darr2)
-{
-	int x;
-
-	if (dynacc(darr2, 0) > dynacc(darr2, 1))
-		ft_sw(darr2, 0);
-	if (dynacc(darr2, 0) > dynacc(darr, 2))
-	{
-		ft_ps(darr, darr2, 1, 1);
-		ft_rs(darr, 1, 1);
-	}
-	else
-		while (!ft_is_sorted(darr, darr2))
-		{
-			x = 0;
-			if (dynacc(darr2, 0) != dynacc(darr, 0) - 1)
-			{
-				ft_rs(darr, 1, 1);
-				x++;
-			}
-			else
-				ft_ps(darr2, darr, 1 , 1);
-			ft_rrs(darr, x, 1);
-		}
-}
-
-void ft_five_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
-{
-	ft_ps(darr, darr2, 2, 0);
-	ft_fast_sort(darr, darr2, 1);
-	ft_insrt_two(darr, darr2);
 }

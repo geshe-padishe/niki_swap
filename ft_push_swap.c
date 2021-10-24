@@ -37,7 +37,7 @@ int ft_is_sorted(t_dynarray *darr, t_dynarray *darr2)
 	i = 0;
 	while (i < darr->nb_cells)
 	{
-		if (darr2->nb_cells != 0 || *(int *)dynacc(darr, i) != i)
+		if (*(int *)dynacc(darr, i) != i)
 			return (0);
 		i++;
 	}
@@ -170,6 +170,11 @@ int main(int argc, char **argv)
 			return (-1);
 		if (ft_parse(argc, argv, &darr) == -1)
 			return (-1);
+	}
+	else
+	{
+		write(2, "Error\n", 6);
+		return (-1);
 	}
 	ft_ps_index(&darr);
 	if (ft_index_check(darr) == 0)

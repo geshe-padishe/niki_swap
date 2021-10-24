@@ -1,5 +1,6 @@
 #include "dynarray.h"
 
+int ft_abs(int nb);
 int ft_is_sorted(t_dynarray *darr, t_dynarray *darr2);
 int ft_move_lower(t_dynarray *darr, t_dynarray *darr2, int old_middle, int middle);
 int ft_dsw(t_dynarray *darr, t_dynarray *darr2);
