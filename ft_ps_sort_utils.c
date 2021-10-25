@@ -39,9 +39,7 @@ uint64_t ft_count_bigger(t_dynarray *darr, uint64_t index, int nb_sorted)
 void ft_insrt_two(t_dynarray *darr, t_dynarray *darr2)
 {
 	if (*(int *)dynacc(darr2, 0) < *(int *)dynacc(darr2, 1))
-	{
-		ft_sw(darr2, 1);
-	}
+		ft_sw(darr2, 0);
 	ft_ps(darr2, darr, 2, 1);
 }
 

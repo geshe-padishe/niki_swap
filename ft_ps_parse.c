@@ -55,18 +55,12 @@ int ft_parse(int argc, char **argv, t_dynarray *darr)
 	int			*tab;
 
 	i = 1;
-	if (argc < 3 || !argv)
-	{
-		write(2, "Error\n", 6);
-		return (-1);
-	}
+	if (!argv)
+		ft_error();
 	while (i < argc)
 	{
 		if (ft_ps_atoi(argv[i]) == 0 && argv[i][0] != '0')
-		{
-			write(2, "Error\n", 6);
-			return (-1);
-		}
+			return (ft_error());
 		i++;
 	}
 	tab = (int *)darr->list;

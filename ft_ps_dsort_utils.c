@@ -88,13 +88,8 @@ int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	int x;
 
 	x = 0;
-	//printf("              INSERT SORT              \n");
-//	ft_print_stack(darr, cmprt);
-//	ft_print_stack(darr2, !cmprt);
 	while (darr2->nb_cells > 0)
 	{
-//		printf("ft_find_next: %llu\n", ft_find_next(ft_lowest_index(darr2), ft_highest_index(darr2), darr2));
-//		printf("l = %d, h = %d\nl_ix: %llu, h_ix: %llu\n", l, h, ft_lowest_index(darr2), ft_highest_index(darr2));
 		tab2 = (int *)darr2->list;
 		l = tab2[ft_lowest_index(darr2)];
 		h = tab2[ft_highest_index(darr2)];
@@ -106,7 +101,6 @@ int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 		}
 		else if (tab2[0] == h)
 		{
-			//ft_print_stack(darr, cmprt);
 			ft_ps(darr2, darr, 1, 1);
 			x++;
 			h--;
