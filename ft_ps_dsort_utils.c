@@ -1,6 +1,6 @@
 #include "ft_push_swap.h"
 
-uint64_t ft_find_next(uint64_t index_l, uint64_t index_h, t_dynarray *darr)
+uint64_t	ft_find_next(uint64_t index_l, uint64_t index_h, t_dynarray *darr)
 {
 	if (index_l <= darr->nb_cells / 2 && index_h <= darr->nb_cells / 2)
 	{
@@ -29,12 +29,12 @@ uint64_t ft_find_next(uint64_t index_l, uint64_t index_h, t_dynarray *darr)
 	return (0);
 }
 
-uint64_t ft_lowest_index(t_dynarray *darr)
+uint64_t	ft_lowest_index(t_dynarray *darr)
 {
-	uint64_t i;
-	int *tab;
-	uint64_t index;
-	int nb;
+	uint64_t	i;
+	int			*tab;
+	uint64_t	index;
+	int			nb;
 
 	i = 0;
 	index = 0;
@@ -52,13 +52,13 @@ uint64_t ft_lowest_index(t_dynarray *darr)
 	return (index);
 }
 
-uint64_t ft_highest_index(t_dynarray *darr)
+uint64_t	ft_highest_index(t_dynarray *darr)
 {
-	uint64_t i;
-	int *tab;
-	uint64_t index;
-	uint64_t index2;
-	int nb;
+	uint64_t	i;
+	int			*tab;
+	uint64_t	index;
+	uint64_t	index2;
+	int			nb;
 
 	i = 0;
 	index = 0;
@@ -75,17 +75,15 @@ uint64_t ft_highest_index(t_dynarray *darr)
 		}
 		i++;
 	}
-	//ft_print_stack(darr, 0);
-	//printf("index: %llu, index2: %llu\n", index, index2);
 	return (index);
 }
 
-int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
+int			ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
-	int *tab2;
-	int l;
-	int h;
-	int x;
+	int	 *tab2;
+	int	 l;
+	int	 h;
+	int	 x;
 
 	x = 0;
 	while (darr2->nb_cells > 0)
@@ -114,10 +112,10 @@ int ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	return (1);
 }
 
-int ft_count_sorted(t_dynarray *darr, bool cmprt)
+int			ft_count_sorted(t_dynarray *darr, bool cmprt)
 {
-	uint64_t i;
-	int *tab;
+	uint64_t	i;
+	int			*tab;
 
 	tab = (int *)darr->list;
 	if (!cmprt || !(((uint64_t)tab[darr->nb_cells - 1] == darr->nb_cells - 1)))
@@ -132,9 +130,9 @@ int ft_count_sorted(t_dynarray *darr, bool cmprt)
 	return (darr->nb_cells - 1 - i);
 }
 
-int ft_dfast_sort3(t_dynarray *darr, bool cmprt)
+int			ft_dfast_sort3(t_dynarray *darr, bool cmprt)
 {
-	int *tab;
+	int	*tab;
 
 	tab = (int *)darr->list;
 	if (tab[0] < tab[1] && tab[0] < tab[2])
@@ -150,9 +148,9 @@ int ft_dfast_sort3(t_dynarray *darr, bool cmprt)
 	return (0);
 }
 
-int ft_dfast_sort2(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
+int			ft_dfast_sort2(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
-	int *tab;
+	int	*tab;
 
 	tab = (int *)darr->list;
 	if (tab[2] < tab[0] && tab[2] < tab[1])
@@ -165,9 +163,9 @@ int ft_dfast_sort2(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	return (0);
 }
 
-int ft_dfast_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
+int			ft_dfast_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
-	int *tab;
+	int	*tab;
 
 	tab = (int *)darr->list;
 	if (tab[1] < tab[0] && tab[1] < tab[2])

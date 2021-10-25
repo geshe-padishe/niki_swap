@@ -2,9 +2,9 @@
 
 int		ft_ps_index(t_dynarray *darr)
 {
-	int *tab;
-	void *tmp;
-	uint64_t i;
+	int			*tab;
+	void		*tmp;
+	uint64_t	i;
 
 	i = 0;
 	tab = (int *)darr->tmp;
@@ -21,8 +21,8 @@ int		ft_ps_index(t_dynarray *darr)
 
 int		ft_ps_atoi(const char *nstr)
 {
-	long long int	nbr;
-	int						sign;
+	long long	nbr;
+	int			sign;
 
 	sign = 1;
 	nbr = 0;
@@ -49,7 +49,7 @@ int		ft_ps_atoi(const char *nstr)
 	return ((int)nbr * sign);
 }
 
-int ft_parse(int argc, char **argv, t_dynarray *darr)
+int		ft_parse(int argc, char **argv, t_dynarray *darr)
 {
 	int			i;
 	int			*tab;
@@ -74,11 +74,11 @@ int ft_parse(int argc, char **argv, t_dynarray *darr)
 	return (0);
 }
 
-int ft_parse_string(int argc, char **argv, t_dynarray *darr)
+int		ft_parse_string(int argc, char **argv, t_dynarray *darr)
 {
-	int i;
-	int j;
-	int *tab;
+	int	i;
+	int	j;
+	int	*tab;
 
 	tab = (int *)darr->list;
 	i = 0;
@@ -105,10 +105,10 @@ int ft_parse_string(int argc, char **argv, t_dynarray *darr)
 	return (0);
 }
 
-int ft_count_nb(char *str)
+int		ft_count_nb(char *str)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -126,10 +126,10 @@ int ft_count_nb(char *str)
 	return (count);
 }
 
-void ft_print_stack(t_dynarray *darr, int cmprt)
+void	ft_print_stack(t_dynarray *darr, int cmprt)
 {
-	int *tab;
-	uint64_t i;
+	int			*tab;
+	uint64_t	i;
 
 	i = 0;
 	tab = darr->list;
