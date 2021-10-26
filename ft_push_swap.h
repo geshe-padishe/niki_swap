@@ -16,7 +16,7 @@ uint64_t ft_count_lower(t_dynarray *darr, uint64_t index, int nb_sorted);
 uint64_t ft_count_bigger(t_dynarray *darr, uint64_t index, int nb_sorted);
 int ft_find_middle(t_dynarray *darr, bool cmprt);
 int ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt);
-int	ft_ps_atoi(const char *nstr);
+int	ft_ps_atoi(char *nstr);
 int ft_parse(int argc, char **argv, t_dynarray *darr);
 void ft_print_stack(t_dynarray *darr, int cmprt);
 int ft_sw(t_dynarray *darr, bool cmprt);

@@ -19,19 +19,27 @@ int		ft_ps_index(t_dynarray *darr)
 	return (1);
 }
 
-int		ft_ps_atoi(const char *nstr)
+int		ft_atoi_sign(char **nstr)
+{
+	int	sign;
+
+	sign = 1;
+	if (**nstr == '-' || **nstr == '+')
+	{
+		(*nstr)++;
+		if (*(*nstr - 1) == '-')
+			sign = -1;
+	}
+	return (sign);
+}
+
+int		ft_ps_atoi(char *nstr)
 {
 	long long	nbr;
 	int			sign;
 
-	sign = 1;
 	nbr = 0;
-	if (*nstr == '-' || *nstr == '+')
-	{
-		nstr++;
-		if (*(nstr - 1) == '-')
-			sign = -1;
-	}
+	sign = ft_atoi_sign(&nstr);	
 	if (*nstr >= '0' && *nstr <= '9')
 	{
 		while (*nstr >= '0' && *nstr <= '9')
@@ -77,20 +85,17 @@ int		ft_parse(int argc, char **argv, t_dynarray *darr)
 int		ft_parse_string(int argc, char **argv, t_dynarray *darr)
 {
 	int	i;
-	int	j;
-	int	*tab;
+	int	nb;
 
-	tab = (int *)darr->list;
 	i = 0;
-	j = 0;
 	while (argv[1][i])
 	{
 		if (argv[1][i] == ' ' && i != 0)
 			i++;
 		if ((argv[1][i] >= '0' && argv[1][i] <= '9') || argv[1][i] == '-')
 		{
-			tab[j] = ft_ps_atoi(&argv[1][i]);
-			j++;
+			nb = ft_ps_atoi(&argv[1][i]);
+			push_dynarray(darr, &nb, 1, 0);
 			if (argv[1][i] == '-')
 				i++;
 			if (argv[1][i] < '0' || argv[1][i] > '9')
@@ -101,7 +106,6 @@ int		ft_parse_string(int argc, char **argv, t_dynarray *darr)
 		else
 			return (-1);
 	}
-	darr->nb_cells = j;
 	return (0);
 }
 
