@@ -38,9 +38,14 @@ uint64_t ft_count_bigger(t_dynarray *darr, uint64_t index, int nb_sorted)
 
 void ft_insrt_two(t_dynarray *darr, t_dynarray *darr2)
 {
-	if (*(int *)dynacc(darr2, 0) < *(int *)dynacc(darr2, 1))
-		ft_sw(darr2, 0);
-	ft_ps(darr2, darr, 2, 1);
+	if (darr2->nb_cells == 2)
+	{
+		if (*(int *)dynacc(darr2, 0) < *(int *)dynacc(darr2, 1))
+			ft_sw(darr2, 0);
+		ft_ps(darr2, darr, 2, 1);
+	}
+	else
+		ft_ps(darr2, darr, 1, 1);
 }
 
 void ft_five_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
@@ -54,9 +59,9 @@ int ft_small_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
 	if (ft_is_sorted(darr, darr2))
 		return (1);
-	if (darr->nb_cells > 3)
+	if (darr->nb_cells > 3 && darr->nb_cells < 6)
 		ft_five_sort(darr, darr2, 1);
-	if (darr->nb_cells == 2)
+	else if (darr->nb_cells == 2)
 	{
 		if (*(int *)dynacc(darr, 0) > *(int *)dynacc(darr, 1))
 			ft_sw(darr, cmprt);
@@ -68,8 +73,12 @@ int ft_small_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 		else
 			ft_dfast_sort(darr, darr2, cmprt);
 	}
-	if (darr2->nb_cells > 0)
-		ft_insert_sort(darr, darr2, cmprt);
+	else
+	{
+		ft_move_lower(darr, darr2, 3, 30);
+		ft_fast_sort(darr, darr2, 1);
+		ft_insert_sort(darr, darr2, 1);
+	}
 	return (1);
 }
 

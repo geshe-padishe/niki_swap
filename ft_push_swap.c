@@ -164,7 +164,11 @@ int	main(int argc, char **argv)
 	if (ft_index_check(darr) == 0)
 		return (ft_error());
 	ft_sort_stack(&darr, &darr2, 1);
-//	if (ft_is_sorted(&darr, &darr2) == 0)
-//		printf("STACK NOT SORTED!!\n");
+	if (ft_is_sorted(&darr, &darr2) == 0)
+	{
+		ft_print_stack(&darr, 1);
+		ft_print_stack(&darr2, 0);
+		printf("STACK NOT SORTED!!\n");
+	}
 	return (0);
 }
