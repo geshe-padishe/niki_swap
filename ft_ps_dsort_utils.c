@@ -78,6 +78,33 @@ uint64_t	ft_highest_index(t_dynarray *darr)
 	return (index);
 }
 
+int			ft_insert_sort2(t_dynarray *darr, t_dynarray *darr2, int l, int h)
+{
+	int	x;
+	int	*tab2;
+
+	x = 0;
+	tab2 = (int *)darr2->list;
+	if (tab2[0] == l)
+	{
+		ft_ps(darr2, darr, 1, 1);
+		ft_rs(darr, 1, 1);
+		l++;
+	}
+	else if (tab2[0] == h)
+	{
+		ft_ps(darr2, darr, 1, 1);
+		x++;
+		h--;
+	}
+	else if (ft_find_next(ft_lowest_index(darr2),
+			ft_highest_index(darr2), darr2) > darr2->nb_cells / 2)
+		ft_rrs(darr2, 1, 0);
+	else
+		ft_rs(darr2, 1, 0);
+	return (x);
+}
+
 int			ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 {
 	int	 *tab2;
@@ -91,22 +118,7 @@ int			ft_insert_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 		tab2 = (int *)darr2->list;
 		l = tab2[ft_lowest_index(darr2)];
 		h = tab2[ft_highest_index(darr2)];
-		if (tab2[0] == l)
-		{
-			ft_ps(darr2, darr, 1, 1);
-			ft_rs(darr, 1, 1);
-			l++;
-		}
-		else if (tab2[0] == h)
-		{
-			ft_ps(darr2, darr, 1, 1);
-			x++;
-			h--;
-		}
-		else if (ft_find_next(ft_lowest_index(darr2), ft_highest_index(darr2), darr2) > darr2->nb_cells / 2)
-			ft_rrs(darr2, 1, 0);
-		else
-			ft_rs(darr2, 1, 0);
+		x += ft_insert_sort2(darr, darr2, l, h);
 	}
 	ft_rs(darr, x, 1);
 	return (1);
@@ -125,7 +137,7 @@ int			ft_count_sorted(t_dynarray *darr, bool cmprt)
 		while (i > 0 && tab[i] == tab[i - 1] + 1)
 			i--;
 	else
-		while (i > 0  &&tab[i] == tab[i - 1] - 1)
+		while (i > 0 && tab[i] == tab[i - 1] - 1)
 			i--;
 	return (darr->nb_cells - 1 - i);
 }

@@ -8,9 +8,9 @@ int	ft_error(void)
 
 int	ft_index_check(t_dynarray darr)
 {
-	int	i;
-	int	j;
-	int	*tab;
+	uint64_t	i;
+	uint64_t	j;
+	int			*tab;
 
 	j = 0;
 	i = 0;
@@ -43,7 +43,7 @@ int	ft_is_sorted(t_dynarray *darr, t_dynarray *darr2)
 	i = 0;
 	while (i < darr->nb_cells)
 	{
-		if (*(int *)dynacc(darr, i) != i)
+		if (*(int *)dynacc(darr, i) != (long long)i)
 			return (0);
 		i++;
 	}
@@ -159,7 +159,7 @@ int	main(int argc, char **argv)
 			return (-1);
 	}
 	else
-		return (ft_error());
+		return (-1);
 	ft_ps_index(&darr);
 	if (ft_index_check(darr) == 0)
 		return (ft_error());
