@@ -6,7 +6,7 @@
 /*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 21:07:41 by ngenadie          #+#    #+#             */
-/*   Updated: 2021/10/28 21:10:39 by ngenadie         ###   ########.fr       */
+/*   Updated: 2021/10/29 00:22:58 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			ft_move_lower(t_dynarray *darr, t_dynarray *darr2, int old_mid,
 				int mid);
 int			ft_dsw(t_dynarray *darr, t_dynarray *darr2);
 int			ft_count_nb(char *str);
-int			ft_parse_string(int argc, char **argv, t_dynarray *darr);
+int			ft_parse_string(int argc, char **argv, t_dynarray *darr, int j);
 int			ft_small_sort(t_dynarray *darr, t_dynarray *darr2, bool cmprt);
 int			ft_count_sorted(t_dynarray *darr, bool cmprt);
 uint64_t	ft_count_index(t_dynarray *darr, uint64_t index, int nb_sorted);

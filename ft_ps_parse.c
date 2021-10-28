@@ -6,7 +6,7 @@
 /*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:58:16 by ngenadie          #+#    #+#             */
-/*   Updated: 2021/10/28 22:21:29 by ngenadie         ###   ########.fr       */
+/*   Updated: 2021/10/29 00:58:17 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,49 +71,50 @@ int	ft_ps_atoi(char *nstr)
 
 int	ft_parse(int argc, char **argv, t_dynarray *darr)
 {
-	int			i;
-	int			*tab;
+	int	i;
 
 	i = 1;
-	if (!argv)
-		return (-1);
 	while (i < argc)
 	{
-		if (ft_ps_atoi(argv[i]) == 0 && argv[i][0] != '0')
+		if (argv[i] == NULL)
+			return (-1);
+		if (ft_parse_string(argc, argv, darr, i) == -1)
 			return (-1);
 		i++;
 	}
-	tab = (int *)darr->list;
-	i = 0;
-	while (i < argc - 1)
-	{
-		tab[i] = ft_ps_atoi(argv[i + 1]);
-		i++;
-	}
-	darr->nb_cells = argc - 1;
 	return (0);
 }
 
-int	ft_parse_string(int argc, char **argv, t_dynarray *darr)
+int	ft_parse_advance(char **argv, int i, int j)
+{
+	while ((argv[j][i] >= '0' && argv[j][i] <= '9'))
+		i++;
+	while (argv[j][i] == ' ')
+		i++;
+	return (i);
+}
+
+int	ft_parse_string(int argc, char **argv, t_dynarray *darr, int j)
 {
 	int	i;
 	int	nb;
 
 	i = 0;
-	while (argv[1][i])
+	while (argv[j][i])
 	{
-		if (argv[1][i] == ' ' && i != 0)
+		while (argv[j][i] == ' ')
 			i++;
-		if ((argv[1][i] >= '0' && argv[1][i] <= '9') || argv[1][i] == '-')
+		if ((argv[j][i] >= '0' && argv[j][i] <= '9') || argv[j][i] == '-')
 		{
-			nb = ft_ps_atoi(&argv[1][i]);
-			push_dynarray(darr, &nb, 1, 0);
-			if (argv[1][i] == '-')
-				i++;
-			if (argv[1][i] < '0' || argv[1][i] > '9')
+			nb = ft_ps_atoi(&argv[j][i]);
+			if (nb == 0 && argv[j][i] != '0')
 				return (-1);
-			while (argv[1][i] >= '0' && argv[1][i] <= '9')
+			push_dynarray(darr, &nb, 1, 0);
+			if (argv[j][i] == '-')
 				i++;
+			if (argv[j][i] < '0' || argv[j][i] > '9')
+				return (-1);
+			i = ft_parse_advance(argv, i, j);
 		}
 		else
 			return (-1);
