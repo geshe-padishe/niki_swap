@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/28 20:52:09 by ngenadie          #+#    #+#             */
+/*   Updated: 2021/10/28 22:01:36 by ngenadie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
-int	ft_error(void)
+int	ft_error(t_dynarray *darr, t_dynarray *darr2)
 {
 	write(2, "Error\n", 6);
 	return (-1);
@@ -119,6 +131,7 @@ int	ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 	if (darr->nb_cells < 26)
 		ft_small_sort(darr, darr2, cmprt);
 	else
+	{
 		while (!ft_is_sorted(darr, darr2))
 		{
 			if (mid_info != 0)
@@ -130,6 +143,37 @@ int	ft_sort_stack(t_dynarray *darr, t_dynarray *darr2, bool cmprt)
 			ft_insert_sort(darr, darr2, cmprt);
 			mid_info = 1;
 		}
+	}
+	return (0);
+}
+
+int	init_1(t_dynarray *darr, t_dynarray *darr2, int argc, char **argv)
+{
+	if ((init_dynarray(darr, ft_count_nb(argv[1]), 4)) == -1)
+		return (-1);
+	if ((init_dynarray(darr2, ft_count_nb(argv[1]), 4)) == -1)
+	{
+		free_dynarray(darr);
+		return (-1);
+	}
+	if (ft_count_nb(argv[1]) < 1)
+		return (ft_error(darr, darr2));
+	if (ft_parse_string(argc, argv, darr) == -1)
+		return (ft_error(darr, darr2));
+	return (0);
+}
+
+int	init_2(t_dynarray *darr, t_dynarray *darr2, int argc, char **argv)
+{
+	if ((init_dynarray(darr, argc - 1, 4)) == -1)
+		return (-1);
+	if ((init_dynarray(darr2, argc - 1, 4)) == -1)
+	{
+		free_dynarray(darr);
+		return (-1);
+	}
+	if (ft_parse(argc, argv, darr) == -1)
+		return (ft_error(darr, darr2));
 	return (0);
 }
 
@@ -140,29 +184,19 @@ int	main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		if ((init_dynarray(&darr, ft_count_nb(argv[1]), 4)) == -1)
+		if (init_1(&darr, &darr2, argc, argv) == -1)
 			return (-1);
-		if ((init_dynarray(&darr2, ft_count_nb(argv[1]), 4)) == -1)
-			return (-1);
-		if (ft_count_nb(argv[1]) < 1)
-			return (ft_error());
-		if (ft_parse_string(argc, argv, &darr) == -1)
-			return (ft_error());
 	}
 	else if (argc > 2)
 	{
-		if ((init_dynarray(&darr, argc - 1, 4)) == -1)
-			return (-1);
-		if ((init_dynarray(&darr2, argc - 1, 4)) == -1)
-			return (-1);
-		if (ft_parse(argc, argv, &darr) == -1)
+		if (init_2(&darr, &darr2, argc, argv) == -1)
 			return (-1);
 	}
 	else
 		return (-1);
 	ft_ps_index(&darr);
 	if (ft_index_check(darr) == 0)
-		return (ft_error());
+		return (ft_error(&darr, &darr2));
 	ft_sort_stack(&darr, &darr2, 1);
 	if (ft_is_sorted(&darr, &darr2) == 0)
 	{

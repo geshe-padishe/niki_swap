@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ps_parse.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/28 20:58:16 by ngenadie          #+#    #+#             */
+/*   Updated: 2021/10/28 22:21:29 by ngenadie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
-int		ft_ps_index(t_dynarray *darr)
+int	ft_ps_index(t_dynarray *darr)
 {
 	int			*tab;
 	void		*tmp;
@@ -19,7 +31,7 @@ int		ft_ps_index(t_dynarray *darr)
 	return (1);
 }
 
-int		ft_atoi_sign(char **nstr)
+int	ft_atoi_sign(char **nstr)
 {
 	int	sign;
 
@@ -33,13 +45,13 @@ int		ft_atoi_sign(char **nstr)
 	return (sign);
 }
 
-int		ft_ps_atoi(char *nstr)
+int	ft_ps_atoi(char *nstr)
 {
 	long long	nbr;
 	int			sign;
 
 	nbr = 0;
-	sign = ft_atoi_sign(&nstr);	
+	sign = ft_atoi_sign(&nstr);
 	if (*nstr >= '0' && *nstr <= '9')
 	{
 		while (*nstr >= '0' && *nstr <= '9')
@@ -57,18 +69,18 @@ int		ft_ps_atoi(char *nstr)
 	return ((int)nbr * sign);
 }
 
-int		ft_parse(int argc, char **argv, t_dynarray *darr)
+int	ft_parse(int argc, char **argv, t_dynarray *darr)
 {
 	int			i;
 	int			*tab;
 
 	i = 1;
 	if (!argv)
-		ft_error();
+		return (-1);
 	while (i < argc)
 	{
 		if (ft_ps_atoi(argv[i]) == 0 && argv[i][0] != '0')
-			return (ft_error());
+			return (-1);
 		i++;
 	}
 	tab = (int *)darr->list;
@@ -82,7 +94,7 @@ int		ft_parse(int argc, char **argv, t_dynarray *darr)
 	return (0);
 }
 
-int		ft_parse_string(int argc, char **argv, t_dynarray *darr)
+int	ft_parse_string(int argc, char **argv, t_dynarray *darr)
 {
 	int	i;
 	int	nb;
@@ -109,7 +121,7 @@ int		ft_parse_string(int argc, char **argv, t_dynarray *darr)
 	return (0);
 }
 
-int		ft_count_nb(char *str)
+int	ft_count_nb(char *str)
 {
 	int	i;
 	int	count;

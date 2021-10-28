@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ps_move.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/28 20:54:58 by ngenadie          #+#    #+#             */
+/*   Updated: 2021/10/28 20:55:00 by ngenadie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
-int ft_dsw(t_dynarray *darr, t_dynarray *darr2)
+int	ft_dsw(t_dynarray *darr, t_dynarray *darr2)
 {
-	int tmp;
-	int *tab;
+	int	tmp;
+	int	*tab;
 
 	tab = (int *)darr->list;
 	tmp = tab[0];
@@ -17,10 +29,10 @@ int ft_dsw(t_dynarray *darr, t_dynarray *darr2)
 	return (0);
 }
 
-int ft_sw(t_dynarray *darr, bool cmprt)
+int	ft_sw(t_dynarray *darr, bool cmprt)
 {
-	int tmp;
-	int *tab;
+	int	tmp;
+	int	*tab;
 
 	tab = (int *)darr->list;
 	tmp = tab[0];
@@ -33,10 +45,10 @@ int ft_sw(t_dynarray *darr, bool cmprt)
 	return (0);
 }
 
-int ft_ps(t_dynarray *darr, t_dynarray *darr2, uint64_t n, bool cmprt)
+int	ft_ps(t_dynarray *darr, t_dynarray *darr2, uint64_t n, bool cmprt)
 {
-	int tmp;
-	uint64_t i;
+	int			tmp;
+	uint64_t	i;
 
 	i = 0;
 	while (i < n)
@@ -53,11 +65,11 @@ int ft_ps(t_dynarray *darr, t_dynarray *darr2, uint64_t n, bool cmprt)
 	return (0);
 }
 
-int ft_rs(t_dynarray *darr, uint64_t n, bool cmprt)
+int	ft_rs(t_dynarray *darr, uint64_t n, bool cmprt)
 {
-	int tmp;
-	int *tab;
-	uint64_t i;
+	int			tmp;
+	int			*tab;
+	uint64_t	i;
 
 	i = 0;
 	while (i < n)
@@ -75,11 +87,11 @@ int ft_rs(t_dynarray *darr, uint64_t n, bool cmprt)
 	return (0);
 }
 
-int ft_rrs(t_dynarray *darr, uint64_t n, bool cmprt)
+int	ft_rrs(t_dynarray *darr, uint64_t n, bool cmprt)
 {
-	int tmp;
-	int *tab;
-	uint64_t i;
+	int			tmp;
+	int			*tab;
+	uint64_t	i;
 
 	i = 0;
 	while (i < n)
@@ -96,4 +108,3 @@ int ft_rrs(t_dynarray *darr, uint64_t n, bool cmprt)
 	}
 	return (0);
 }
-
