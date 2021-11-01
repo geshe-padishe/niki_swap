@@ -1,31 +1,46 @@
-CC = gcc
+NAME			= push_swap_libft
+EX_NAME			= push_swap
 
-NAME = libft.a
+CC				= gcc
+CFLAGS			= -Wall -Wextra -Werror
 
-CFLAGS = -Wall -Wextra -Werror
+FLAGS			= -L ${LIBFT_D} -lft
+RM				= rm -f
+AR				= ar rcs
 
-SRC_C = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
-ft_isprint.c ft_itoa.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
-ft_split.c ft_strchr.c ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c \
-ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
-ft_putendl_fd.c ft_putnbr_fd.c ft_putchar_fd.c ft_putstr_fd.c dynarray.c dynarray2.c ft_realloc.c
+SRC_D			= srcs
+SRCS_LIST		= ft_ps_dsort2_utils.c ft_ps_parse_utils.c \
+                  ft_push_swap.c ft_push_swap2.c ft_ps_sort_utils.c \
+                  ft_ps_dsort_utils.c ft_ps_move.c ft_ps_parse.c
+SRC_C			= $(addprefix ${SRC_D}/, ${SRCS_LIST})
 
-INC_H = libft.h dynarray.h
+INC_D			= includes
+HEADER_LIST		= ft_push_swap.h
+HEADER_H		= $(addprefix ${INC_D}/, ${HEADER_LIST})
 
-OBJS = $(SRC_C:.c=.o)
-	
-all: $(NAME)
+LIBFT			= libft.a
+LIBFT_D			= dyn_libft
+LIBFT_A			= $(addprefix ${LIBFT_D}/, ${LIBFT})
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+OBJS			= ${SRC_C:.c=.o}
+
+all:			${NAME}
+
+${NAME}:		${OBJS}
+				make -C ${LIBFT_D}
+				cp ${LIBFT_D}/${LIBFT} ${NAME}
+				${AR} ${NAME} ${OBJS}
+				${CC} ${NAME} -o ${EX_NAME}
+
+%.o: %.c ${HEADER_H}
+				${CC} ${CFLAGS} -I${INC_D} -I${LIBFT_D} -o $@ -c $<
 
 clean:
-	rm -f $(OBJS)
+				$(MAKE) -C ${LIBFT_D} clean
+				${RM} ${OBJS}
 
 fclean: clean
-	rm -f $(NAME)
+				$(MAKE) -C ${LIBFT_D} fclean
+				${RM} ${NAME} ${EX_NAME}
 
-re: fclean all
-
-$%.o: $%.c $(INC_H)
-	$(CC) $(CFLAGS) -c $< -o $@
+re: 			fclean all
