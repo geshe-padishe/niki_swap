@@ -6,7 +6,7 @@
 /*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:52:09 by ngenadie          #+#    #+#             */
-/*   Updated: 2021/11/01 15:30:58 by ngenadie         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:04:49 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,16 @@ int	init_2(t_dynarray *darr, t_dynarray *darr2, int argc, char **argv)
 {
 	if ((init_dynarray(darr, argc - 1, 4)) == -1)
 		return (-1);
-	if ((init_dynarray(darr2, argc - 1, 4)) == -1)
+	if (ft_parse(argc, argv, darr) == -1)
+	{
+		free_dynarray(darr);
+		return (ft_error(darr));
+	}
+	if ((init_dynarray(darr2, darr->nb_cells, 4)) == -1)
 	{
 		free_dynarray(darr);
 		return (-1);
 	}
-	if (ft_parse(argc, argv, darr) == -1)
-		return (ft_error(darr, darr2));
 	return (0);
 }
 
@@ -108,7 +111,10 @@ int	main(int argc, char **argv)
 		return (-1);
 	ft_ps_index(&darr);
 	if (ft_index_check(darr) == 0)
-		return (ft_error(&darr, &darr2));
+	{
+		free_dynarray(&darr2);
+		return (ft_error(&darr));
+	}
 	ft_sort_stack(&darr, &darr2, 1, 0);
 	free_dynarray(&darr);
 	free_dynarray(&darr2);

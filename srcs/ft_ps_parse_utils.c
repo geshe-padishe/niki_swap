@@ -6,7 +6,7 @@
 /*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 19:35:22 by ngenadie          #+#    #+#             */
-/*   Updated: 2021/11/01 15:31:49 by ngenadie         ###   ########.fr       */
+/*   Updated: 2021/11/02 19:27:28 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,14 @@ int	ft_ps_index(t_dynarray *darr)
 	darr->list = darr->tmp;
 	darr->tmp = tmp;
 	return (1);
+}
+
+int	ft_ps_advance(char **argv, int i, int j)
+{
+	int	z;
+
+	z = 0;
+	while (argv[j][i] == '0')
+		z++;
+	return (z);
 }

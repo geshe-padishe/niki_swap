@@ -19,7 +19,7 @@ HEADER_LIST		= ft_push_swap.h
 HEADER_H		= $(addprefix ${INC_D}/, ${HEADER_LIST})
 
 LIBFT			= libft.a
-LIBFT_D			= dyn_libft
+LIBFT_D			= libft
 LIBFT_A			= $(addprefix ${LIBFT_D}/, ${LIBFT})
 
 OBJS			= ${SRC_C:.c=.o}

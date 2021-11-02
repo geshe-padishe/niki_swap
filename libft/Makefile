@@ -7,13 +7,13 @@ CFLAGS = -Wall -Wextra -Werror
 SRC_C = ft_memcpy.c ft_memset.c \
 		dynarray.c dynarray2.c
 
-INC_H = libft.h dynarray.h
+INC_H = dynarray.h
 
 OBJS = $(SRC_C:.c=.o)
 	
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) ${INC_H}
 	ar rc $(NAME) $(OBJS)
 
 clean:
@@ -24,5 +24,5 @@ fclean: clean
 
 re: fclean all
 
-$%.o: $%.c $(INC_H)
+%.o: %.c $(INC_H)
 	$(CC) $(CFLAGS) -c $< -o $@

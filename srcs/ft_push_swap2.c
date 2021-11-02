@@ -6,16 +6,15 @@
 /*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:47:12 by ngenadie          #+#    #+#             */
-/*   Updated: 2021/10/30 18:47:57 by ngenadie         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:05:12 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-int	ft_error(t_dynarray *darr, t_dynarray *darr2)
+int	ft_error(t_dynarray *darr)
 {
 	free_dynarray(darr);
-	free_dynarray(darr2);
 	write(2, "Error\n", 6);
 	return (-1);
 }

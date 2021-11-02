@@ -6,7 +6,7 @@
 /*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 21:07:41 by ngenadie          #+#    #+#             */
-/*   Updated: 2021/11/01 15:29:16 by ngenadie         ###   ########.fr       */
+/*   Updated: 2021/11/02 19:28:39 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include	"dynarray.h"
 
+int			ft_ps_advance(char **argv, int i, int j);
 uint64_t	ft_lowest_index(t_dynarray *darr);
 uint64_t	ft_highest_index(t_dynarray *darr);
 int			ft_parse_advance(char **argv, int i, int j);
@@ -22,7 +23,7 @@ int			ft_index_check(t_dynarray darr);
 int			ft_scan(t_dynarray *darr, int old_mid, int mid);
 void		ft_insrt_two(t_dynarray *darr, t_dynarray *darr2);
 void		ft_five_sort(t_dynarray *darr, t_dynarray *darr2);
-int			ft_error(t_dynarray *darr, t_dynarray *darr2);
+int			ft_error(t_dynarray *darr);
 int			ft_abs(int nb);
 int			ft_is_sorted(t_dynarray *darr);
 int			ft_move_lower(t_dynarray *darr, t_dynarray *darr2, int old_mid,
