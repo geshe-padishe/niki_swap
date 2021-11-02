@@ -6,7 +6,7 @@
 /*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 19:35:22 by ngenadie          #+#    #+#             */
-/*   Updated: 2021/11/02 19:27:28 by ngenadie         ###   ########.fr       */
+/*   Updated: 2021/11/02 20:13:14 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int	ft_ps_index(t_dynarray *darr)
 	return (1);
 }
 
-int	ft_ps_advance(char **argv, int i, int j)
+int	ft_ps_sign_advance(char **argv, int i, int j)
 {
-	int	z;
+	int	x;
 
-	z = 0;
-	while (argv[j][i] == '0')
-		z++;
-	return (z);
+	x = 0;
+	if (argv[j][i] == '-' || argv[j][i] == '+')
+		x++;
+	return (x);
 }

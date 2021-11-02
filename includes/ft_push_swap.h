@@ -6,7 +6,7 @@
 /*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 21:07:41 by ngenadie          #+#    #+#             */
-/*   Updated: 2021/11/02 19:28:39 by ngenadie         ###   ########.fr       */
+/*   Updated: 2021/11/02 20:14:26 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include	"dynarray.h"
 
-int			ft_ps_advance(char **argv, int i, int j);
+int			ft_ps_sign_advance(char **argv, int i, int j);
 uint64_t	ft_lowest_index(t_dynarray *darr);
 uint64_t	ft_highest_index(t_dynarray *darr);
 int			ft_parse_advance(char **argv, int i, int j);

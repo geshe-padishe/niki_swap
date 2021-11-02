@@ -6,7 +6,7 @@
 /*   By: ngenadie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 20:58:16 by ngenadie          #+#    #+#             */
-/*   Updated: 2021/11/02 19:28:03 by ngenadie         ###   ########.fr       */
+/*   Updated: 2021/11/02 20:13:45 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ int	ft_parse_string(char **argv, t_dynarray *darr, int j)
 				argv[j][i] == '-' || argv[j][i] == '+')
 		{
 			nb = ft_ps_atoi(&argv[j][i]);
-			if (argv[j][i] == '-' || argv[j][i] == '+')
-				i++;
-			i += ft_ps_advance(argv, i, j);
 			if (nb == 0 && argv[j][i] != '0')
 				return (-1);
 			if (push_dynarray(darr, &nb, 1, 0) == -1)
+				return (-1);
+			i += ft_ps_sign_advance(argv, i, j);
+			if (argv[j][i] < '0' || argv[j][i] > '9')
 				return (-1);
 			i = ft_parse_advance(argv, i, j);
 		}
